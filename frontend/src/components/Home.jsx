@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { handleSuccess } from './Utils';
+import { handleSuccess } from './Toast';
 import {ToastContainer} from "react-toastify";
 import axios from "axios";
 

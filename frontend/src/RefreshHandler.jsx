@@ -8,13 +8,13 @@ function RefreshHandler({setisAuthenticated}) {
         const token = localStorage.getItem("token");
         if(token){
             setisAuthenticated(true);
-            if(
-                location.pathname === "/" ||
-                location.pathname === "/login" ||
-                location.pathname === "/signup"
-            ){
-                navigate("/home",{replace:false});
-            }
+            // if(
+            //     location.pathname === "/" ||
+            //     location.pathname === "/login" ||
+            //     location.pathname === "/signup"
+            // ){
+            //     navigate("/home",{replace:false});
+            // }
         }   
     },[location,navigate,setisAuthenticated])
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import {ToastContainer} from "react-toastify";
-import { handleError,handleSuccess } from './Utils';
+import { handleError,handleSuccess } from './Toast';
 import axios from "axios";
 
 function Login() {
@@ -23,15 +23,34 @@ function Login() {
       const resJson = await res.data;
       // console.log(resJson,"<----------------------------responsone signup");
       console.log(resJson,"<----------------resposne LOCAL");
-      const {message,success,error,jwtToken,name} =resJson;
+      const {message,success,error,jwtToken,name,existingUser} =resJson;
       
       if(success){
         handleSuccess(message);
         localStorage.setItem("token",jwtToken);
         localStorage.setItem("loggedinuser",name);
-        
+        localStorage.setItem("loggedinuser",existingUser.userrole);
+        console.log(existingUser?.userrole,"<--------------userrole");
         setTimeout(() => {
-          navigate("/home");
+          switch(existingUser.userrole){
+
+            case "adminrole":
+              navigate("/admin/dashboard");
+              break;
+            
+              case "customerrole":
+            navigate("/customer/dashboard");
+            break;
+            
+            case "agentrole":
+                navigate("/agent/dashboard");
+                break;
+            
+            default:
+              navigate("/login");
+                  
+          }
+          // navigate("/home");
         }, 1000);
       }else if(error){
         handleError(error?.details[0]?.message);
