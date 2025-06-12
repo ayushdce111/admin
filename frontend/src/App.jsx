@@ -25,7 +25,7 @@ function App() {
     <>
     <RefreshHandler setisAuthenticated={setisAuthenticated}/>
     <Routes>
-      <Route path='/' element={<Signup/>} />
+      <Route path='/' element={<Login/>} />
       <Route path='/signup' element={<Signup/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/admin/dashboard' element={<AdminDashboard/>} />

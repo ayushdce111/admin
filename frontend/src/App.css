@@ -1,0 +1,13 @@
+.curvedBottom{
+    /* clip-path: polygon(50% 0%, 100% 0, 100% 35%, 100% 70%, 83% 90%, 49% 99%, 22% 93%, 0 100%, 0% 35%, 0 0); */
+    clip-path: polygon(0 0, 100% 0, 100% 73%, 51% 86%, 0 100%, 0% 50%);
+
+   
+}
+.backgroundCurve{
+        /* top: -228px;
+    left: -66px;
+    bottom: 28%;
+    right: -46px;
+    transform: rotate(208deg); */
+}
