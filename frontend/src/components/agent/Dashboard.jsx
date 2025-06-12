@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import {ToastContainer} from "react-toastify";
 import {handleSuccess} from "../Toast.jsx";
+
 
 const Dashboard = () => {
    const navigate=useNavigate();
@@ -18,7 +20,9 @@ const Dashboard = () => {
         }
   return (
     <div>    <button onClick={handleLogout}>LOGOUT</button>
-    Agent Dashboard</div>
+    Agent Dashboard
+    <ToastContainer/>
+    </div>
   )
 }
 

@@ -22,15 +22,15 @@ function Login() {
       const res = await axios.post("http://localhost:8000/auth/login",formData);
       const resJson = await res.data;
       // console.log(resJson,"<----------------------------responsone signup");
-      console.log(resJson,"<----------------resposne LOCAL");
+      // console.log(resJson,"<----------------resposne LOCAL");
       const {message,success,error,jwtToken,name,existingUser} =resJson;
-      
+      // console.log(resJson.message,"<----------message",resJson);
       if(success){
         handleSuccess(message);
         localStorage.setItem("token",jwtToken);
         localStorage.setItem("loggedinuser",name);
-        localStorage.setItem("loggedinuser",existingUser.userrole);
-        console.log(existingUser?.userrole,"<--------------userrole");
+        // localStorage.setItem("loggedinuser",existingUser.userrole);
+        // console.log(existingUser?.userrole,"<--------------userrole");
         setTimeout(() => {
           switch(existingUser.userrole){
 
@@ -61,7 +61,10 @@ function Login() {
       //   handleError(msg);
       // }
       }catch(error){
-        handleError(error);
+        // console.log(error,"<-------------")
+        
+        error.status===403 && handleError(error?.response?.data?.message);
+        error.status===400 && handleError(error?.response?.data?.error?.details[0]?.message);
       }
   }
   return (
