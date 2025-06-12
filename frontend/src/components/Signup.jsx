@@ -10,7 +10,7 @@ function Signup() {
   const [formData,setformData]=useState({name:"",email:"",password:"",userrole:"adminrole"});
   const handleChange = (e)=>{
     setformData({...formData,[e.target.name]:e.target.value});
-    console.log(formData,"<----------local");
+    // console.log(formData,"<----------local");
   }
   const handleSignup = async (e)=>{
     e.preventDefault();
@@ -40,7 +40,9 @@ function Signup() {
       //   handleError(msg);
       // }
       }catch(error){
-        handleError(error);
+        // console.log(error,"<-------------------------------error");
+        
+        error.status===400 && handleError(error.response.data.error.details[0].message) 
       }
   }
   return (
