@@ -3,7 +3,7 @@ const {EnsureAuthenticated} = require("../middleware/EnsureAuthenticated");
 
 
 router.get("/",EnsureAuthenticated,(req,res)=>{
-    console.log(req.user) //to access user details without making db call everytime
+    // console.log(req.user) //to access user details without making db call everytime
     res.status(200).json([
         {
             name: "name demo",

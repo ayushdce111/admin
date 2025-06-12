@@ -9,21 +9,23 @@ import Signup from './components/Signup';
 import { Link, Navigate } from 'react-router-dom';
 import RefreshHandler from "./RefreshHandler";
 
+const PrivateRoute=({element,isAuthenticated})=>{
+    return isAuthenticated===true ? element : <Navigate to="/login" />
+  }
+
 function App() {
 // const Navigate = useNavigate();
   const [isAuthenticated,setisAuthenticated]=useState(false);
-  const PrivateRoute=({element})=>{
-    return isAuthenticated ? element : <Navigate to="/Login" />
-  }
+  
 
   return (
     <>
     <RefreshHandler setisAuthenticated={setisAuthenticated}/>
     <Routes>
       <Route path='/' element={<Signup/>} />
-      <Route path='/Signup' element={<Signup/>} />
-      <Route path='/Login' element={<Login/>} />
-      <Route path='/Home' element={<PrivateRoute element={<Home/>}/>} />
+      <Route path='/signup' element={<Signup/>} />
+      <Route path='/login' element={<Login/>} />
+      <Route path='/home' element={<PrivateRoute element={<Home/>} isAuthenticated={isAuthenticated}/>} />
 
     </Routes>
       

@@ -11,9 +11,9 @@ function RefreshHandler({setisAuthenticated}) {
             if(
                 location.pathname === "/" ||
                 location.pathname === "/login" ||
-                location.pathname === "/Signup"
+                location.pathname === "/signup"
             ){
-                navigate("/Home",{replace:false});
+                navigate("/home",{replace:false});
             }
         }   
     },[location,navigate,setisAuthenticated])
