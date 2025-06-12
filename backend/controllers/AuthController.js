@@ -4,14 +4,15 @@ const bcrypt = require("bcrypt");
 
 const signup = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        // console.log(name, email, password,"signup COntroller");
+        const { name, email, password,userrole } = req.body;
+        // console.log(name, email, password,userrole,"signup COntroller");
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
             return res.status(409).json({ success: false, message: 'Email already exists' });
         }
-        const user = new UserModel({ name, email, password });
+        const user = new UserModel({ name, email, password, userrole });
         user.password = await bcrypt.hash(password, 10);
+        // console.log(user,"<-------------user.userRole--",user.userrole)
         await user.save();
         res.status(201).json({ user, success: true, message: "Signup Success" });
     } catch (error) {
