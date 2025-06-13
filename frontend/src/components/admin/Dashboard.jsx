@@ -2,6 +2,8 @@ import React,{useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {ToastContainer} from "react-toastify";
 import {handleSuccess} from "../Toast.jsx";
+import axios from "axios";
+import AddPackages from "./AddPackages.jsx";
 // const { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } = window.ReactIcons;
 import { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } from 'react-icons/fa';
 const Dashboard = () => {
@@ -12,6 +14,7 @@ const Dashboard = () => {
         handleSuccess("LoggedOut Successfully");
         localStorage.removeItem("loggedinuser");
         localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
 
 
         
@@ -21,20 +24,6 @@ const Dashboard = () => {
     
       }
           
-const TockenChecker=async ()=>{
-
-const localToken = localStorage.getItem("token");
-    if(localToken){
-        const tokenData = await axios.post("http://localhost:8000/auth/tokenCheck",{localToken});
-        const tokenResponse = await tokenData.data;
-        console.log(tokenResponse,"<------------------tokenResponse");
-
-    }
-
-    }
-useEffect( ()=>{
-    TockenChecker();
-},[])
       // demo start
 const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -44,9 +33,8 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
       // demo end
   return (
     <>
-    <button onClick={handleLogout}>LOGOUT</button>
-        <div>ADMIN Dashboard</div>
-        <div className="flex min-h-screen font-sans">
+    
+        <div className="flex min-h-screen overflow-hidden ">
                     {/* Sidebar */}
                     <div className={`fixed md:static  left-0 bg-gray-900 text-white transition-all duration-300 z-50 
                         ${isSidebarOpen ? 'w-64' : 'w-16'} md:w-64 flex flex-col`}>
@@ -58,7 +46,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 </svg>
                                 {isSidebarOpen && <span className="text-lg font-bold hidden md:block">LOGO</span>}
                             </div>
-                            <button onClick={toggleSidebar} className="md:hidden text-white">
+                            <button onClick={toggleSidebar} className="md:hidden text-red-700">
                                 <FaBars className="w-6 h-6" />
                             </button>
                         </div>
@@ -68,6 +56,10 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                             <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
                                 <FaHome className="w-5 h-5" />
                                 {(isSidebarOpen || window.innerWidth >= 768) && <span>Dashboard</span>}
+                            </a>
+                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
+                                <FaUsers className="w-5 h-5" />
+                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Add Packages</span>}
                             </a>
                             <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
                                 <FaUsers className="w-5 h-5" />
@@ -120,32 +112,38 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                     </div>
 
                     {/* Main Content */}
-                    <div className="flex-1 flex flex-col">
+                    <div className="flex-1 flex flex-col max-h-screen overflow-y-auto ">
                         {/* Header */}
-                        <div className="flex items-center justify-between p-4 bg-white shadow-sm">
+                        <div className="flex items-center justify-between p-4 bg-white shadow-sm sticky top-0">
                             <div className="relative">
                                 <input
                                     type="text"
                                     placeholder="Search"
-                                    className="border rounded-lg py-2 px-4 pl-10 w-40 sm:w-64"
+                                    className="border rounded-sm py-2 px-4 pl-10 w-40 sm:w-64 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 />
                                 <FaSearch className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
                             </div>
                             <div className="flex items-center space-x-3">
                                 <FaBell className="w-5 h-5 text-gray-500" />
-                                <img src="#" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
-                                <span className="hidden sm:inline text-sm sm:text-base">Tom Cook</span>
-                                <FaChevronDown className="w-4 h-4 text-gray-500" />
+                                <img src="#" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border" />
+                                <div className=' border p-1 rounded-sm relative'>
+                                    <div className='flex gap-2 items-center'>
+                                        <span className="hidden sm:inline text-sm sm:text-base">Tom Cook</span>
+                                        <FaChevronDown className="w-4 h-4 text-gray-500" />
+                                    </div>
+                                    <div className='absolute top-[100%] shadow w-full flex flex-col bg-gray-300 text-sm'>
+                                        <button onClick={handleLogout} className='cursor-pointer border border-amber-600 rounded hover:bg-blue-200  px-2 py-1 '>LOGOUT</button>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
 
                         {/* Main Area */}
-                        <div className="flex-1 p-4 sm:p-6 bg-gray-100">
-                            <div className="bg-white border-2 border-dashed border-gray-300 rounded-lg h-full flex items-center justify-center">
-                                <p className="text-gray-500 text-sm sm:text-base">
-                                    Activate Windows - Go to 'Settings' to activate Windows
-                                </p>
-                            </div>
+                        <div className="flex-1  sm:px-6 sm:py-3 bg-gray-100">
+                            
+                                <AddPackages />
+                           
                         </div>
                     </div>
                 </div>

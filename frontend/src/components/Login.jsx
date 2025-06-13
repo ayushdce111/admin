@@ -24,11 +24,12 @@ function Login() {
       // console.log(resJson,"<----------------------------responsone signup");
       // console.log(resJson,"<----------------resposne LOCAL");
       const {message,success,error,jwtToken,name,existingUser} =resJson;
-      // console.log(resJson.message,"<----------message",resJson);
+      // console.log(resJson,"<----------message",resJson);
       if(success){
         handleSuccess(message);
         localStorage.setItem("token",jwtToken);
         localStorage.setItem("loggedinuser",name);
+        localStorage.setItem("userEmail",existingUser.email);
         // localStorage.setItem("loggedinuser",existingUser.userrole);
         // console.log(existingUser?.userrole,"<--------------userrole");
         setTimeout(() => {
