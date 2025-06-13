@@ -23,7 +23,7 @@ function Signup() {
       const res = await axios.post("http://localhost:8000/auth/signup",formData);
       const resJson = await res.data;
       // console.log(resJson,"<----------------------------responsone signup");
-      console.log(resJson,"<----------------resposne LOCAL");
+      // console.log(resJson,"<----------------resposne LOCAL");
       const {message,success,error,msg} =resJson;
       
       if(success){
@@ -42,7 +42,8 @@ function Signup() {
       }catch(error){
         // console.log(error,"<-------------------------------error");
         
-        error.status===400 && handleError(error.response.data.error.details[0].message) 
+        error.status===400 && handleError(error.response.data.error.details[0].message);
+        error.status===409 && handleError(error.response.data.message) 
       }
   }
   return (

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {ToastContainer} from "react-toastify";
 import {handleSuccess} from "../Toast.jsx";
@@ -20,7 +20,21 @@ const Dashboard = () => {
             }, 1000);
     
       }
+          
+const TockenChecker=async ()=>{
 
+const localToken = localStorage.getItem("token");
+    if(localToken){
+        const tokenData = await axios.post("http://localhost:8000/auth/tokenCheck",{localToken});
+        const tokenResponse = await tokenData.data;
+        console.log(tokenResponse,"<------------------tokenResponse");
+
+    }
+
+    }
+useEffect( ()=>{
+    TockenChecker();
+},[])
       // demo start
 const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -34,7 +48,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
         <div>ADMIN Dashboard</div>
         <div className="flex min-h-screen font-sans">
                     {/* Sidebar */}
-                    <div className={`fixed md:static inset-y-0 left-0 bg-gray-900 text-white transition-all duration-300 z-50 
+                    <div className={`fixed md:static  left-0 bg-gray-900 text-white transition-all duration-300 z-50 
                         ${isSidebarOpen ? 'w-64' : 'w-16'} md:w-64 flex flex-col`}>
                         {/* Logo and Toggle Button */}
                         <div className="flex items-center justify-between p-4">
@@ -119,7 +133,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                             </div>
                             <div className="flex items-center space-x-3">
                                 <FaBell className="w-5 h-5 text-gray-500" />
-                                <img src="https://via.placeholder.com/40" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
+                                <img src="#" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
                                 <span className="hidden sm:inline text-sm sm:text-base">Tom Cook</span>
                                 <FaChevronDown className="w-4 h-4 text-gray-500" />
                             </div>

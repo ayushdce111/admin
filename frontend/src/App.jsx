@@ -18,12 +18,12 @@ const PrivateRoute=({element,isAuthenticated})=>{
 
 function App() {
 // const Navigate = useNavigate();
-  const [isAuthenticated,setisAuthenticated]=useState(false);
+  // const [isAuthenticated,setisAuthenticated]=useState(false);
   
 
   return (
     <>
-    <RefreshHandler setisAuthenticated={setisAuthenticated}/>
+    {/* <RefreshHandler setisAuthenticated={setisAuthenticated}/> */}
     <Routes>
       <Route path='/' element={<Login/>} />
       <Route path='/signup' element={<Signup/>} />
