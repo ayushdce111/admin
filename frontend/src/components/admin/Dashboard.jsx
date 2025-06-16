@@ -1,13 +1,18 @@
 import React,{useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Routes,Route,Link, useLocation } from 'react-router-dom';
 import {ToastContainer} from "react-toastify";
 import {handleSuccess} from "../Toast.jsx";
-import axios from "axios";
+// import axios from "axios";
 import AddPackages from "./AddPackages.jsx";
+import ViewPackages from "./ViewPackages.jsx";
+import { IoCaretDownSharp } from "react-icons/io5";
+
 // const { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } = window.ReactIcons;
 import { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } from 'react-icons/fa';
+import AdminMain from './AdminMain.jsx';
 const Dashboard = () => {
         const navigate=useNavigate();
+        const { pathname } = useLocation();
 
     const handleLogout=()=>{
 
@@ -30,13 +35,25 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
             const toggleSidebar = () => {
                 setIsSidebarOpen(!isSidebarOpen);
             };
+
+            const [openMenus, setOpenMenus] = useState({
+                menu1: false,
+                submenu12: false,
+              });
+
+  const toggleMenu = (menu) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [menu]: !prev[menu],
+    }));
+  };
       // demo end
   return (
     <>
     
         <div className="flex min-h-screen overflow-hidden ">
                     {/* Sidebar */}
-                    <div className={`fixed md:static  left-0 bg-gray-900 text-white transition-all duration-300 z-50 
+                    <div className={`max-h-screen overflow-auto fixed md:static  left-0 bg-gray-900 text-white transition-all duration-300 z-50 
                         ${isSidebarOpen ? 'w-64' : 'w-16'} md:w-64 flex flex-col`}>
                         {/* Logo and Toggle Button */}
                         <div className="flex items-center justify-between p-4">
@@ -44,7 +61,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm1-3c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
                                 </svg>
-                                {isSidebarOpen && <span className="text-lg font-bold hidden md:block">LOGO</span>}
+                                {isSidebarOpen && <span className="text-lg font-bold hidden md:block text-white">LOGO</span>}
                             </div>
                             <button onClick={toggleSidebar} className="md:hidden text-red-700">
                                 <FaBars className="w-6 h-6" />
@@ -53,14 +70,56 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
                         {/* Menu Items */}
                         <nav className="flex-1">
-                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
-                                <FaHome className="w-5 h-5" />
-                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Dashboard</span>}
-                            </a>
-                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
-                                <FaUsers className="w-5 h-5" />
-                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Add Packages</span>}
-                            </a>
+                            <ul className="space-y-2">
+                                     
+                                          <li >
+                                           <Link to={"/admin/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/' ? 'bg-gray-700' : ''}`}>
+                                            <FaHome className="w-5 h-5" />
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Dashboard</span>}
+                                            </Link>
+                                          </li>
+                                      
+                                
+                                        {/* Menu 1 with children */}
+                                        <li>
+                                          <Link to={""}
+                                            onClick={() => toggleMenu('menu1')}
+                                            className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/AddPackages/' || pathname === '/admin/ViewPackages/' ? 'bg-gray-700' : ''}`}
+                                          >
+                                            <FaHome className="w-5 h-5" />
+                                           {(isSidebarOpen || window.innerWidth >= 768) && <span>Packages</span>}
+                                            <span className={`transform transition-transform ml-auto ${openMenus.menu1 ? 'rotate-90' : ''}`}><IoCaretDownSharp /></span>
+                                          </Link>
+                                
+                                          {openMenus.menu1 && (
+                                            <ul className="pl-6 mt-1 space-y-1">
+                                              <li>
+                                                <Link to={"/admin/AddPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/AddPackages/' ? 'bg-gray-700' : ''}`}>
+                                                  Add Packages
+                                                </Link>
+                                              </li>
+                                              <li>
+                                                <Link to={"/admin/ViewPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/ViewPackages/' ? 'bg-gray-700' : ''}`}>
+                                                  View Packages
+                                                </Link>
+                                              </li>
+                                
+                                              
+                                              
+                                            </ul>
+                                          )}
+                                        </li>
+                                <li >
+                                           <Link to={""} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/menu/' ? 'bg-gray-700' : ''}`}>
+                                            <FaHome className="w-5 h-5" />
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>MNEU</span>}
+                                            </Link>
+                                          </li>
+                                        
+                                      </ul>
+                                      
+                            
+                            
                             <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
                                 <FaUsers className="w-5 h-5" />
                                 {(isSidebarOpen || window.innerWidth >= 768) && <span>Team</span>}
@@ -140,9 +199,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                         </div>
 
                         {/* Main Area */}
-                        <div className="flex-1  sm:px-6 sm:py-3 bg-gray-100">
-                            
-                                <AddPackages />
+                        <div className="flex-1 px-3  bg-gray-100">
+                            <Routes>
+                                <Route path="/" element={<AdminMain />} />
+                                <Route path="/AddPackages/" element={<AddPackages />} />
+                                <Route path="/ViewPackages/" element={<ViewPackages />} />
+                            </Routes>
+                                {/* <AddPackages /> */}
                            
                         </div>
                     </div>

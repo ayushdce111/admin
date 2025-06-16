@@ -36,15 +36,15 @@ function Login() {
           switch(existingUser.userrole){
 
             case "adminrole":
-              navigate("/admin/dashboard");
+              navigate("/admin/");
               break;
             
               case "customerrole":
-            navigate("/customer/dashboard");
+            navigate("/customer/");
             break;
             
             case "agentrole":
-                navigate("/agent/dashboard");
+                navigate("/agent/");
                 break;
             
             default:

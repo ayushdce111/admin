@@ -28,9 +28,9 @@ function App() {
       <Route path='/' element={<Login/>} />
       <Route path='/signup' element={<Signup/>} />
       <Route path='/login' element={<Login/>} />
-      <Route path='/admin/dashboard' element={<AdminDashboard/>} />
-      <Route path='/customer/dashboard' element={<CustomerDashboard/>} />
-      <Route path='/agent/dashboard' element={<AgentDashboard/>} />
+      <Route path='/admin/*' element={<AdminDashboard/>} />
+      <Route path='/customer/*' element={<CustomerDashboard/>} />
+      <Route path='/agent/*' element={<AgentDashboard/>} />
       {/* <Route path='/home' element={<PrivateRoute element={<Home/>} isAuthenticated={isAuthenticated}/>} /> */}
 
     </Routes>

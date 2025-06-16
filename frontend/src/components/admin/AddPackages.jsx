@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {ToastContainer} from "react-toastify";
 import { handleError,handleSuccess } from '../Toast';
+import axios from 'axios';
 
 function AddPackages() {
 
@@ -40,40 +41,53 @@ function AddPackages() {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
       console.log('Form submitted:', formData);
-      // Reset form or send to API
-      setFormData({
-        title: '',
-        destinations: '',
-        duration: '',
-        description: '',
-        prices: '',
-        travelMode: '',
-        inclusions: '',
-        availability: '',
-      });
-      setErrors({});
+      
 
       const Token= localStorage.getItem("token");
       const UserEmail= localStorage.getItem("userEmail");
 
       if(Token && UserEmail){
-        const sendDataServer = async ()=>{
+        
+       const SubmitTravelPackages = async ()=>{
+try{
 
-          const response = await axios(`${process.env.REACT_APP_API_HOST}/api/travelpackages`, {UserEmail,formData});
+
+          const response = await axios.post("http://localhost:8000/admin/api/travelpackages", {UserEmail,formData});
           const responsData = await response.data;
-          console(responsData,"<-------------responsData");
+          console.log(responsData,"<-------------responsData");
 
           handleSuccess("form submitted")
-
+}catch(error){
+  // console.log(error,"<--------to handlew");
+  error.status===409 ? handleError(error.response.data.message + " with same name") :"";
+  
+}
         }
+
+        SubmitTravelPackages();
+        // Reset form or send to API
+      // setFormData({
+      //   title: '',
+      //   destinations: '',
+      //   duration: '',
+      //   description: '',
+      //   prices: '',
+      //   travelMode: '',
+      //   inclusions: '',
+      //   availability: '',
+      // });
+      setErrors({});
         
       
 
-    } else {
+    }
+   } else {
       setErrors(formErrors);
+      handleError("Can't save Packages");
+
     }
   }
-}
+
   return (
     <div>
 
