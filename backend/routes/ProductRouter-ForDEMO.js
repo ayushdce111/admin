@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {EnsureAuthenticated} = require("../middleware/EnsureAuthenticated");
+const {EnsureAuthenticated} = require("../middleware/EnsureAuthenticated-ForDemo");
 
 
 router.get("/",EnsureAuthenticated,(req,res)=>{

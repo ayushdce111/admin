@@ -5,7 +5,7 @@ require("./models/db");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const AuthRouter = require("./routes/AuthRouter");
-const ProductRouter = require("./routes/ProductRouter");
+// const ProductRouter = require("./routes/ProductRouter-ForDEMO");
 const AdminRouter = require("./routes/AdminRouter")
 
 const PORT = process.env.PORT || 8000;
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/auth",AuthRouter);
-app.use("/products",ProductRouter);
+// app.use("/products",ProductRouter);
 app.use("/admin",AdminRouter);
 
 app.get("/",(req,res)=>{
