@@ -5,6 +5,7 @@ import {handleSuccess} from "../Toast.jsx";
 // import axios from "axios";
 import AddPackages from "./AddPackages.jsx";
 import ViewPackages from "./ViewPackages.jsx";
+import ViewEnquiry from "./ViewEnquiry.jsx"
 import { IoCaretDownSharp } from "react-icons/io5";
 
 // const { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } = window.ReactIcons;
@@ -109,6 +110,12 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                             </ul>
                                           )}
                                         </li>
+                                         <li >
+                                           <Link to={"/admin/ViewEnquiry/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/ViewEnquiry/' ? 'bg-gray-700' : ''}`}>
+                                            <FaHome className="w-5 h-5" />
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>View Enquiry</span>}
+                                            </Link>
+                                          </li>
                                 <li >
                                            <Link to={""} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/menu/' ? 'bg-gray-700' : ''}`}>
                                             <FaHome className="w-5 h-5" />
@@ -174,15 +181,15 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                     <div className="flex-1 flex flex-col max-h-screen overflow-y-auto ">
                         {/* Header */}
                         <div className="flex items-center justify-between p-4 bg-white shadow-sm sticky top-0">
-                            <div className="relative">
+                            {/* <div className="relative">
                                 <input
                                     type="text"
                                     placeholder="Search"
                                     className="border rounded-sm py-2 px-4 pl-10 w-40 sm:w-64 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 />
                                 <FaSearch className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
-                            </div>
-                            <div className="flex items-center space-x-3">
+                            </div> */}
+                            <div className="flex items-center space-x-3 ml-auto">
                                 <FaBell className="w-5 h-5 text-gray-500" />
                                 <img src="#" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border" />
                                 <div className=' border p-1 rounded-sm relative'>
@@ -204,6 +211,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 <Route path="/" element={<AdminMain />} />
                                 <Route path="/AddPackages/" element={<AddPackages />} />
                                 <Route path="/ViewPackages/" element={<ViewPackages />} />
+                                <Route path="/ViewEnquiry/" element={<ViewEnquiry />} />
                             </Routes>
                                 {/* <AddPackages /> */}
                            

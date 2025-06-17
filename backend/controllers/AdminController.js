@@ -1,4 +1,5 @@
 const travelpackageModel = require("../models/travelpackages.js");
+const EnquiryModel = require("../models/Enquiry.js");
 // const getAlltravelpackagesModel = require("../models/getAlltravelpackages.js");
 
 const travelpackages = async(req,res)=>{
@@ -33,4 +34,15 @@ const getAlltravelpackages = async (req,res)=>{
             res.status(500).json({message:error});
         }
 }
-module.exports = {travelpackages,getAlltravelpackages};
+
+const getAllEnquiry = async (req,res)=>{
+    // console.log(req.body,"serevr  resp");
+    try{
+        const packages1 = await EnquiryModel.find().sort({submittedAt:-1});
+        // console.log(packages);
+        res.status(200).json(packages1);
+        }catch(error){
+            res.status(500).json({message:error});
+        }
+}
+module.exports = {travelpackages,getAlltravelpackages,getAllEnquiry};
