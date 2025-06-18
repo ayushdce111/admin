@@ -3,7 +3,7 @@ import {ToastContainer} from "react-toastify";
 import { handleError,handleSuccess } from '../Toast';
 import axios from 'axios';
 
-function AddPackages() {
+function AgentAddPackages() {
 
   const [formData, setFormData] = useState({
     title: '',
@@ -52,7 +52,7 @@ function AddPackages() {
 try{
 
 
-          const response = await axios.post("http://localhost:8000/admin/api/travelpackages", {UserEmail,formData});
+          const response = await axios.post("http://localhost:8000/agent/api/travelpackages", {UserEmail,formData});
           const responsData = await response.data;
           console.log(responsData,"<-------------responsData");
 
@@ -221,4 +221,4 @@ try{
 }
 
 
-export default AddPackages;
+export default AgentAddPackages;

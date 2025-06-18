@@ -8,12 +8,15 @@ import { DataGrid } from '@mui/x-data-grid';
 function ViewPackages() {
     const UserEmail= localStorage.getItem("userEmail");
     const [alltravelPackages, setAllTravelPackages] = useState([]);
+    const userEmail = localStorage.getItem("userEmail");
   useEffect(()=>{
     try{
     const getallPackages =async ()=>{ 
-        const Alldata = await axios.get('http://localhost:8000/admin/api/travelpackages');
+        const Alldata = await axios.get('http://localhost:8000/agent/api/travelpackages',{
+        params: { userEmail }
+      });
         setAllTravelPackages(Alldata.data)
-    // console.log(Alldata.data);
+    console.log(Alldata.data);
     }
     getallPackages();
     }catch(error){

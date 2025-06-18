@@ -5,31 +5,35 @@ import { useEffect } from 'react';
 // import ViewDataTable from "./ViewDataTable";
 import { DataGrid } from '@mui/x-data-grid';
 
-function ViewEnquiry() {
+function ViewAdminPackages() {
     const UserEmail= localStorage.getItem("userEmail");
-    const [allEnquiry, setAllEnquiry] = useState([]);
+    const [alltravelPackages, setAllTravelPackages] = useState([]);
   useEffect(()=>{
     try{
-    const getallEnquiry =async ()=>{ 
-        const Alldata = await axios.get('http://localhost:8000/admin/api/enquiry');
-        setAllEnquiry(Alldata.data)
+    const getallPackages =async ()=>{ 
+        const Alldata = await axios.get('http://localhost:8000/admin/api/admintravelpackages');
+        setAllTravelPackages(Alldata.data)
     // console.log(Alldata.data);
     }
-    getallEnquiry();
+    getallPackages();
     }catch(error){
         console.log(error);
     }
 },[])
 // 
 const columns = [
-  { field: 'name', headerName: 'Name', width: 200 },
-  { field: 'phone', headerName: 'Phone', width: 300 },
-  {field:"message",headerName:"Message",width:300},
-  
+  { field: 'title', headerName: 'Title', width: 200 },
+  { field: 'inclusions', headerName: 'Inclusions', width: 300 },
+  {field:"travelMode",headerName:"TravelMode",width:300},
+  {field:"prices",headerName:"Prices",width:300},
+  { field: 'duration', headerName: 'Duration', width: 200 },
+  { field: 'destinations', headerName: 'Destinations', width: 300 },
+  { field: 'description', headerName: 'Description', width: 200 },
+  { field: 'availability', headerName: 'Availability', width: 300 },
 ];
-const rows=allEnquiry;
-const getRowId = (allEnquiry) => {
-      return allEnquiry._id; 
+const rows=alltravelPackages;
+const getRowId = (alltravelPackages) => {
+      return alltravelPackages._id; 
     };
     return (
     <>
@@ -56,4 +60,4 @@ const getRowId = (allEnquiry) => {
   )
 }
 
-export default ViewEnquiry
+export default ViewAdminPackages

@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const AuthRouter = require("./routes/AuthRouter");
 // const ProductRouter = require("./routes/ProductRouter-ForDEMO");
-const AdminRouter = require("./routes/AdminRouter")
+const AdminRouter = require("./routes/AdminRouter");
+const AgentRouter = require("./routes/AgentRouter");
 
 const PORT = process.env.PORT || 8000;
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use("/auth",AuthRouter);
 // app.use("/products",ProductRouter);
 app.use("/admin",AdminRouter);
+app.use("/agent",AgentRouter);
 
 app.get("/",(req,res)=>{
     console.log("hi");

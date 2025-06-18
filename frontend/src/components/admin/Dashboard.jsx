@@ -4,9 +4,15 @@ import {ToastContainer} from "react-toastify";
 import {handleSuccess} from "../Toast.jsx";
 // import axios from "axios";
 import AddPackages from "./AddPackages.jsx";
-import ViewPackages from "./ViewPackages.jsx";
-import ViewEnquiry from "./ViewEnquiry.jsx"
+import ViewAdminPackages from "./ViewAdminPackages.jsx";
+import CustomerEnquiry from "./CustomerEnquiry.jsx";
+import Agenttravelpackages from "./Agenttravelpackages.jsx";
 import { IoCaretDownSharp } from "react-icons/io5";
+import { AiFillDingtalkCircle } from "react-icons/ai";
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { FaUserSecret } from "react-icons/fa6";
+
+
 
 // const { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } = window.ReactIcons;
 import { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } from 'react-icons/fa';
@@ -14,7 +20,10 @@ import AdminMain from './AdminMain.jsx';
 const Dashboard = () => {
         const navigate=useNavigate();
         const { pathname } = useLocation();
-
+        const userEmail = localStorage.getItem("userEmail");
+        const userEmailLoggedin = localStorage.getItem("loggedinuser");
+// console.log(userEmailLoggedin,userEmail,"<-----------my data" );
+// !userEmail && (<>{navigate("/login"); return}</>)
     const handleLogout=()=>{
 
         handleSuccess("LoggedOut Successfully");
@@ -49,6 +58,12 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     }));
   };
       // demo end
+
+      useEffect(() => {
+    if (!userEmail) {
+      navigate("/login");
+    }
+  }, [userEmail, navigate]);
   return (
     <>
     
@@ -57,12 +72,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                     <div className={`max-h-screen overflow-auto fixed md:static  left-0 bg-gray-900 text-white transition-all duration-300 z-50 
                         ${isSidebarOpen ? 'w-64' : 'w-16'} md:w-64 flex flex-col`}>
                         {/* Logo and Toggle Button */}
-                        <div className="flex items-center justify-between p-4">
+                        <div className="flex items-center justify-between p-4 border-b-1">
                             <div className="flex items-center space-x-2">
-                                <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                                {/* <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm1-3c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-                                </svg>
-                                {isSidebarOpen && <span className="text-lg font-bold hidden md:block text-white">LOGO</span>}
+                                </svg> */}
+                                <span className="text-lg font-bold text-white" style={{padding:"3px"}}>ADMIN </span>
+                                {/* {isSidebarOpen && <span className="text-lg font-bold hidden md:block text-white">ADMIN</span>} */}
                             </div>
                             <button onClick={toggleSidebar} className="md:hidden text-red-700">
                                 <FaBars className="w-6 h-6" />
@@ -85,7 +101,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                         <li>
                                           <Link to={""}
                                             onClick={() => toggleMenu('menu1')}
-                                            className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/AddPackages/' || pathname === '/admin/ViewPackages/' ? 'bg-gray-700' : ''}`}
+                                            className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/AddPackages/' || pathname === '/admin/ViewAdminPackages/' ? 'bg-gray-700' : ''}`}
                                           >
                                             <FaHome className="w-5 h-5" />
                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Packages</span>}
@@ -100,7 +116,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                                 </Link>
                                               </li>
                                               <li>
-                                                <Link to={"/admin/ViewPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/ViewPackages/' ? 'bg-gray-700' : ''}`}>
+                                                <Link to={"/admin/ViewAdminPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/ViewAdminPackages/' ? 'bg-gray-700' : ''}`}>
                                                   View Packages
                                                 </Link>
                                               </li>
@@ -111,46 +127,54 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                           )}
                                         </li>
                                          <li >
-                                           <Link to={"/admin/ViewEnquiry/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/ViewEnquiry/' ? 'bg-gray-700' : ''}`}>
-                                            <FaHome className="w-5 h-5" />
-                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>View Enquiry</span>}
+                                           <Link to={"/admin/CustomerEnquiry/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/CustomerEnquiry/' ? 'bg-gray-700' : ''}`}>
+                                            {/* <FaHome  /> */}
+                                            <HiMiniUserGroup className="w-5 h-5" />
+
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Customer Enquiry</span>}
                                             </Link>
                                           </li>
-                                <li >
+                                          <li >
+                                           <Link to={"/admin/agenttravelpackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/agenttravelpackages/' ? 'bg-gray-700' : ''}`}>
+                                            <FaUserSecret  className="w-5 h-5" />
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Agent Packages</span>}
+                                            </Link>
+                                          </li>
+                                {/* <li >
                                            <Link to={""} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/menu/' ? 'bg-gray-700' : ''}`}>
                                             <FaHome className="w-5 h-5" />
                                             {(isSidebarOpen || window.innerWidth >= 768) && <span>MNEU</span>}
                                             </Link>
-                                          </li>
+                                          </li> */}
                                         
                                       </ul>
                                       
                             
                             
-                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
-                                <FaUsers className="w-5 h-5" />
-                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Team</span>}
-                            </a>
-                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
-                                <FaFolder className="w-5 h-5" />
-                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Projects</span>}
-                            </a>
-                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
-                                <FaCalendar className="w-5 h-5" />
-                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Calendar</span>}
-                            </a>
-                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
-                                <FaFileAlt className="w-5 h-5" />
-                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Documents</span>}
-                            </a>
-                            <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
-                                <FaFileAlt className="w-5 h-5" />
-                                {(isSidebarOpen || window.innerWidth >= 768) && <span>Reports</span>}
-                            </a>
+                                {/* <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
+                                    <FaUsers className="w-5 h-5" />
+                                    {(isSidebarOpen || window.innerWidth >= 768) && <span>Team</span>}
+                                </a>
+                                <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
+                                    <FaFolder className="w-5 h-5" />
+                                    {(isSidebarOpen || window.innerWidth >= 768) && <span>Projects</span>}
+                                </a>
+                                <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
+                                    <FaCalendar className="w-5 h-5" />
+                                    {(isSidebarOpen || window.innerWidth >= 768) && <span>Calendar</span>}
+                                </a>
+                                <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
+                                    <FaFileAlt className="w-5 h-5" />
+                                    {(isSidebarOpen || window.innerWidth >= 768) && <span>Documents</span>}
+                                </a>
+                                <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700">
+                                    <FaFileAlt className="w-5 h-5" />
+                                    {(isSidebarOpen || window.innerWidth >= 768) && <span>Reports</span>}
+                                </a> */}
                         </nav>
 
                         {/* Teams Section */}
-                        {(isSidebarOpen || window.innerWidth >= 768) && (
+                        {/* {(isSidebarOpen || window.innerWidth >= 768) && (
                             <div className="p-4">
                                 <h3 className="text-sm font-semibold mb-2">Your teams</h3>
                                 <div className="space-y-2">
@@ -168,13 +192,17 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                     </div>
                                 </div>
                             </div>
-                        )}
+                        )} */}
 
                         {/* Settings */}
-                        <a href="#" className="flex items-center space-x-3 p-4 hover:bg-gray-700 mt-auto">
+                        <ul>
+                         <li >
+                            <Link to={""} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '' ? 'bg-gray-700' : ''}`}>
                             <FaCog className="w-5 h-5" />
                             {(isSidebarOpen || window.innerWidth >= 768) && <span>Settings</span>}
-                        </a>
+                            </Link>
+                        </li>
+                        </ul>
                     </div>
 
                     {/* Main Content */}
@@ -190,9 +218,12 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 <FaSearch className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
                             </div> */}
                             <div className="flex items-center space-x-3 ml-auto">
-                                <FaBell className="w-5 h-5 text-gray-500" />
-                                <img src="#" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border" />
-                                <div className=' border p-1 rounded-sm relative'>
+                                {/* <FaBell className="w-5 h-5 text-gray-500" /> */}
+                                {/* <img src="" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border" /> */}
+                                {/* <AiFillDingtalkCircle className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" /> */}
+                                <span className='capitalize text-sm'>{userEmail} </span>
+                                <button onClick={handleLogout} className='cursor-pointer border border-gray-900 rounded bg-gray-900 text-white hover:bg-gray-700  px-2 py-1 '>LOGOUT</button>
+                                {/* <div className=' border p-1 rounded-sm relative'>
                                     <div className='flex gap-2 items-center'>
                                         <span className="hidden sm:inline text-sm sm:text-base">Tom Cook</span>
                                         <FaChevronDown className="w-4 h-4 text-gray-500" />
@@ -200,7 +231,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                     <div className='absolute top-[100%] shadow w-full flex flex-col bg-gray-300 text-sm'>
                                         <button onClick={handleLogout} className='cursor-pointer border border-amber-600 rounded hover:bg-blue-200  px-2 py-1 '>LOGOUT</button>
                                     </div>
-                                </div>
+                                </div> */}
                                 
                             </div>
                         </div>
@@ -210,8 +241,9 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                             <Routes>
                                 <Route path="/" element={<AdminMain />} />
                                 <Route path="/AddPackages/" element={<AddPackages />} />
-                                <Route path="/ViewPackages/" element={<ViewPackages />} />
-                                <Route path="/ViewEnquiry/" element={<ViewEnquiry />} />
+                                <Route path="/ViewAdminPackages/" element={<ViewAdminPackages />} />
+                                <Route path="/CustomerEnquiry/" element={<CustomerEnquiry />} />
+                                <Route path="/agenttravelpackages/" element={<Agenttravelpackages />} />
                             </Routes>
                                 {/* <AddPackages /> */}
                            

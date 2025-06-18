@@ -42,9 +42,13 @@ const travelpackagesSchema = new Schema({
     submittedAt: {
     type: Date,
     default: Date.now,
+  },
+  package_status:{
+        type:String,
+        required:true,
   }
 })
 
-const travelpackageModel = mongoose.model("travelpackage",travelpackagesSchema);
+const travelpackageModel = mongoose.model("agenttravelpackage",travelpackagesSchema);
 
 module.exports = travelpackageModel;
