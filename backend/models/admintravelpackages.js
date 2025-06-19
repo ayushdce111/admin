@@ -42,6 +42,10 @@ const travelpackagesSchema = new Schema({
     submittedAt: {
     type: Date,
     default: Date.now,
+  },
+  travelcategory:{
+    type:String,
+    required:true,
   }
 })
 

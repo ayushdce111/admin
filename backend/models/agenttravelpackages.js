@@ -46,6 +46,10 @@ const travelpackagesSchema = new Schema({
   package_status:{
         type:String,
         required:true,
+  },
+  travelcategory:{
+    type:String,
+    required:true,
   }
 })
 

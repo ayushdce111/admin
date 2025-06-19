@@ -14,6 +14,7 @@ function AgentAddPackages() {
     travelMode: '',
     inclusions: '',
     availability: '',
+    travelcategory:'',
   });
 
   const [errors, setErrors] = useState({});
@@ -33,6 +34,9 @@ function AgentAddPackages() {
     if (!formData.travelMode) newErrors.travelMode = 'Travel mode is required';
     if (!formData.inclusions) newErrors.inclusions = 'Inclusions are required';
     if (!formData.availability) newErrors.availability = 'Availability is required';
+    if (!formData.travelcategory) newErrors.travelcategory = 'Travel category is required';
+
+   
     return newErrors;
   };
 
@@ -93,6 +97,22 @@ try{
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className='grid grid-cols-2 gap-4 '>
+          <div>
+          <label className="block text-sm font-medium text-gray-700">Category</label>
+          <select
+            name="travelcategory"
+            value={formData.travelcategory}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Select Category</option>
+            <option value="International">International</option>
+            <option value="Domestic">Domestic</option>
+            <option value="Corporate">Corporate</option>
+            <option value="Adventure">Adventure</option>
+          </select>
+          {errors.travelcategory && <p className="text-red-500 text-sm">{errors.travelcategory}</p>}
+        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Title</label>
           <input

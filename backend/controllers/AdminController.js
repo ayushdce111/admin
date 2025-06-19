@@ -7,13 +7,13 @@ const travelpackages = async(req,res)=>{
     try{
         // console.log(req.body.formData,"<---------req.body 1");
         const user_email = req.body.UserEmail;
-        const { title,destinations,duration ,description, prices, travelMode, inclusions, availability } = req.body.formData;
+        const { title,destinations,duration ,description, prices, travelMode, inclusions, availability, travelcategory } = req.body.formData;
         const existingtitle = await travelpackageModel.findOne({ title });
         if (existingtitle) {
             return res.status(409).json({ success: false, message: 'Package already exists' });
         }
         //  console.log(req.body.UserEmail,"<---------req.body 2");
-        const completePackage = new travelpackageModel({ title,destinations,duration ,description, prices, travelMode, inclusions, availability, user_email });
+        const completePackage = new travelpackageModel({ title,destinations,duration ,description, prices, travelMode, inclusions, availability, user_email,travelcategory });
                 // user.password = await bcrypt.hash(password, 10);
                 // console.log(user,"<-------------user.userRole--",user.userrole)
                 await completePackage.save();

@@ -25,6 +25,7 @@ function ViewPackages() {
 },[])
 // 
 const columns = [
+  { field: 'travelcategory', headerName: 'Category', width: 200 },
   { field: 'title', headerName: 'Title', width: 200 },
   { field: 'inclusions', headerName: 'Inclusions', width: 300 },
   {field:"travelMode",headerName:"TravelMode",width:300},
