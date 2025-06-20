@@ -45,17 +45,18 @@ const ChangeStatusButton = ({ row }) => {
 };
 
 const columns = [
+  
+    { field: 'name', headerName: 'Name', width: 150,editable: false  },
+  { field: 'email', headerName: 'Email', width: 200, editable: false },
+  { field: 'password', headerName: 'Password', width: 300, editable: false },
+  { field: "submittedAt", headerName: "Submitted At", width: 300, editable: false },
   {
     field: 'agentStatus',
     headerName: 'Status',
     width: 100,
     renderCell: (params) => <ChangeStatusButton row={params.row} />,
     editable: false
-  },
-    { field: 'name', headerName: 'Name', width: 150,editable: false  },
-  { field: 'email', headerName: 'Email', width: 200, editable: false },
-  { field: 'password', headerName: 'Password', width: 300, editable: false },
-  { field: "submittedAt", headerName: "Submitted At", width: 300, editable: false },
+  }
   
 ];
 const rows = allAgents;
