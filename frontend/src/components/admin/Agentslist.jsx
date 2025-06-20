@@ -3,36 +3,36 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";
 // import CustomSelectEditor from './CustomSelectEditor.jsx';
 
-const Agenttravelpackages = () => {
-  const UserEmail = localStorage.getItem("userEmail");
-  const [allAgentPackages, setAllAgentPackages] = useState([]);
+const Agentslist = () => {
+//   const UserEmail = localStorage.getItem("userEmail");
+  const [allAgents, setAllAgents] = useState([]);
   // const [updatedTextStatus,setupdatedTextStatus] = useState("");
 
   useEffect(() => {
-    const getallAgentPackages = async () => {
+    const getallAgents = async () => {
       try {
-        const Alldata = await axios.get('http://localhost:8000/admin/api/agenttravelpackages');
-        setAllAgentPackages(Alldata.data);
+        const Alldata = await axios.get('http://localhost:8000/admin/api/agentslist');
+        setAllAgents(Alldata.data);
         // setupdatedTextStatus(Alldata.data)
         // console.log(Alldata.data);
       } catch (error) {
         console.log(error);
       }
     };
-    getallAgentPackages();
+    getallAgents();
   }, []);
 const statusOptions = ['Approved', 'Rejected'];
 
 // console.log(updatedTextStatus,"<--------------updatedTextStatus");
 const ChangeStatusButton = ({ row }) => {
   const handleClick = () => {
-    const currentIndex = statusOptions.indexOf(row.package_status);
+    const currentIndex = statusOptions.indexOf(row.agentStatus);
     const nextStatus = statusOptions[(currentIndex + 1) % statusOptions.length];
 
     // Update state with new status
-    setAllAgentPackages((prevPackages) =>
+    setAllAgents((prevPackages) =>
       prevPackages.map((pkg) =>
-        pkg._id === row._id ? { ...pkg, package_status: nextStatus } : pkg
+        pkg._id === row._id ? { ...pkg, agentStatus: nextStatus } : pkg
       )
     );
     // console.log(nextStatus,"<------------nextStatus")
@@ -40,31 +40,25 @@ const ChangeStatusButton = ({ row }) => {
     // nextStatus==="" ? setupdatedTextStatus("Pending") : setupdatedTextStatus(nextStatus);
     handleSubmit(row._id,nextStatus);
   };
-// console.log(row.package_status,"<-----------row.package_status")
-  return <button onClick={handleClick} className={`${row.package_status ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.package_status ==="pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.package_status ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.package_status}</button>;
+// console.log(row.agentStatus,"<-----------row.agentStatus")
+  return <button onClick={handleClick} className={`${row.agentStatus ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.agentStatus ==="Pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.agentStatus ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.agentStatus}</button>;
 };
 
 const columns = [
   {
-    field: 'package_status',
+    field: 'agentStatus',
     headerName: 'Status',
     width: 100,
     renderCell: (params) => <ChangeStatusButton row={params.row} />,
     editable: false
   },
-    { field: 'user_email', headerName: 'Agent Email', width: 300, editable: false },
-    { field: 'travelcategory', headerName: 'Category', width: 150 },
-  { field: 'title', headerName: 'Title', width: 200, editable: false },
-  { field: 'inclusions', headerName: 'Inclusions', width: 300, editable: false },
-  { field: "travelMode", headerName: "TravelMode", width: 300, editable: false },
-  { field: "prices", headerName: "Prices", width: 300, editable: false },
-  { field: 'duration', headerName: 'Duration', width: 200, editable: false },
-  { field: 'destinations', headerName: 'Destinations', width: 300, editable: false },
-  { field: 'description', headerName: 'Description', width: 200, editable: false },
-  { field: 'availability', headerName: 'Availability', width: 300, editable: false },
-  { field: 'submittedAt', headerName: 'Added On', width: 300, editable: false },
+    { field: 'name', headerName: 'Name', width: 150,editable: false  },
+  { field: 'email', headerName: 'Email', width: 200, editable: false },
+  { field: 'password', headerName: 'Password', width: 300, editable: false },
+  { field: "submittedAt", headerName: "Submitted At", width: 300, editable: false },
+  
 ];
-const rows = allAgentPackages;
+const rows = allAgents;
 
 const getRowId = (row) => {
   return row._id;
@@ -72,12 +66,12 @@ const getRowId = (row) => {
 
 
 const handleSubmit = async (updated_id,nextStatus) => {
-  // console.log('Submitted data:', allAgentPackages);
+  // console.log('Submitted data:', allAgents);
 
   try{
   
   
-            const response = await axios.post("http://localhost:8000/admin/api/updateagentpackages", {updated_id, nextStatus});
+            const response = await axios.post("http://localhost:8000/admin/api/agentslist", {updated_id, nextStatus});
             const responsData = await response.data;
             console.log(responsData,"<-------------responsData");
   
@@ -115,4 +109,4 @@ return (
   </>
 );
 }
-export default Agenttravelpackages;
+export default Agentslist;

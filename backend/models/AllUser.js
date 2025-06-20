@@ -22,6 +22,9 @@ const UserSchema = new Schema({
     submittedAt: {
     type: Date,
     default: Date.now,
+  },
+  agentStatus:{
+    type: String
   }
 })
 

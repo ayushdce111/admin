@@ -10,9 +10,20 @@ const signup = async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ success: false, message: 'Email already exists' });
         }
-        const user = new UserModel({ name, email, password, userrole });
+        
+        const agentStatus = "";
+
+        const user = new UserModel({ name, email, password, userrole, agentStatus });
         user.password = await bcrypt.hash(password, 10);
         // console.log(user,"<-------------user.userRole--",user.userrole)
+        // STARTS : for agent status
+        
+        if(userrole==="agentrole"){
+            user.agentStatus = "Pending"
+        }
+
+        // ENDS : for agent status
+        
         await user.save();
         res.status(201).json({ user, success: true, message: "Signup Success" });
     } catch (error) {
@@ -33,6 +44,15 @@ const login = async (req, res) => {
         if(!isPassEqual){
             return res.status(403).json({ message: 'Invalid Password', success: false });
         }
+        // STARTS : Agent Validation
+        if(existingUser.userrole ==="agentrole"){
+if(existingUser.agentStatus !== "Approved"){
+            return res.status(403).json({ message: 'Verification Pending', success: false });
+        }
+        }
+        
+
+        // ENDS : Agent Validation
         const jwtToken = jwt.sign(
             
                 {email:existingUser.email, _id:existingUser._id},

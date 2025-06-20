@@ -1,6 +1,7 @@
 const travelpackageModel = require("../models/admintravelpackages.js");
 const AgenttravelpackageModel = require("../models/agenttravelpackages.js")
 const EnquiryModel = require("../models/CustomerEnquiry.js");
+const UserModel = require("../models/AllUser.js");
 // const getAlltravelpackagesModel = require("../models/getAlltravelpackages.js");
 
 const travelpackages = async(req,res)=>{
@@ -70,6 +71,42 @@ try {
     );
 
     if (!result) {
+      console.log('Agent Package Data not found');
+    } else {
+      console.log('Updated agent Package data:', result);
+    }
+  } catch (error) {
+    console.error('Error updating agent Package data:', error);
+  }
+
+}
+
+const getagentslist =async (req,res)=>{
+  try{
+          const agentslist = await UserModel.find({userrole: "agentrole"}).sort({submittedAt:-1});
+          // console.log(packages);
+          // const isPassEqual = await bcrypt.compare(password,existingUser.password);
+          res.status(200).json(agentslist);
+          }catch(error){
+              res.status(500).json({message:error});
+          }
+}
+
+
+
+const updateagentslist=async (req, res) => {
+  const updates = req.body; // Expecting an array of users with _id and new status
+// console.log(req.body,"<-----------updatetravelpackages");
+const {updated_id, nextStatus }=req.body;
+// console.log( title,destinations,duration ,description, prices, travelMode, inclusions, availability);
+try {
+    const result = await UserModel.findByIdAndUpdate(
+      updated_id,
+      { agentStatus: nextStatus },
+      { newupdated: true } // return the updated document
+    );
+
+    if (!result) {
       console.log('Agent Data not found');
     } else {
       console.log('Updated agent data:', result);
@@ -79,4 +116,5 @@ try {
   }
 
 }
-module.exports = {travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages};
+
+module.exports = {updateagentslist, travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages, getagentslist};

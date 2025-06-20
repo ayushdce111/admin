@@ -79,7 +79,7 @@ function Login() {
   <path fill="#FF0066" d="M47.9,-72.5C62.7,-65,75.8,-52.8,82.5,-37.8C89.1,-22.8,89.4,-5,84.9,10.8C80.5,26.6,71.4,40.3,60.7,52.7C50.1,65.1,37.9,76.2,22.8,83.2C7.7,90.1,-10.2,92.9,-27,89.2C-43.8,85.5,-59.4,75.3,-67.7,61.2C-76,47.1,-76.8,29.1,-77,12.5C-77.2,-4.2,-76.8,-19.5,-71.8,-33.7C-66.8,-48,-57.2,-61.1,-44.5,-69.6C-31.8,-78.1,-15.9,-82,0.3,-82.4C16.5,-82.9,33,-80,47.9,-72.5Z" transform="translate(100 100)" />
 </svg>
                             </div> */}
-                        <div className="curvedBottom bg-[#F79B72] text-white text-center py-4 sm:py-18 rounded-t-xl relative overflow-hidden">
+                        <div className="curvedBottom bg-gray-900 text-white text-center py-4 sm:py-18 rounded-t-xl relative overflow-hidden">
                            <div className='relative z-9'>
                             <h1 className="text-2xl sm:text-3xl font-bold">Welcome </h1>
                             <p className="mt-2 text-sm sm:text-base">Please sign-in to continue!</p>
@@ -114,7 +114,7 @@ function Login() {
                                     Forgot your password?
                                 </a>
                             </div> */}
-                            <button type='submit' className="cursor-pointer w-full bg-[#F79B72] text-white py-2 sm:py-3 rounded-full hover:bg-[#f79a72d0] transition text-sm sm:text-base">
+                            <button type='submit' className="cursor-pointer w-full bg-gray-900 text-white py-2 sm:py-3 rounded-full hover:bg-[#f79a72d0] transition text-sm sm:text-base">
                                 Sign in
                             </button>
                             <div className="text-center mt-4">

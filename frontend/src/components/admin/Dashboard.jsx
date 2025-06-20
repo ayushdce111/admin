@@ -7,6 +7,7 @@ import AddPackages from "./AddPackages.jsx";
 import ViewAdminPackages from "./ViewAdminPackages.jsx";
 import CustomerEnquiry from "./CustomerEnquiry.jsx";
 import Agenttravelpackages from "./Agenttravelpackages.jsx";
+import Agentslist from "./Agentslist.jsx";
 import { IoCaretDownSharp } from "react-icons/io5";
 import { AiFillDingtalkCircle } from "react-icons/ai";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -137,7 +138,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                           <li >
                                            <Link to={"/admin/agenttravelpackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/agenttravelpackages/' ? 'bg-gray-700' : ''}`}>
                                             <FaUserSecret  className="w-5 h-5" />
-                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Agent Packages</span>}
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Agents Package</span>}
+                                            </Link>
+                                          </li>
+                                          <li >
+                                           <Link to={"/admin/agentslist/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/agentslist/' ? 'bg-gray-700' : ''}`}>
+                                            <FaUserSecret  className="w-5 h-5" />
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Agents List</span>}
                                             </Link>
                                           </li>
                                 {/* <li >
@@ -244,6 +251,9 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 <Route path="/ViewAdminPackages/" element={<ViewAdminPackages />} />
                                 <Route path="/CustomerEnquiry/" element={<CustomerEnquiry />} />
                                 <Route path="/agenttravelpackages/" element={<Agenttravelpackages />} />
+                                <Route path="/agentslist/" element={<Agentslist />} />
+
+                                
                             </Routes>
                                 {/* <AddPackages /> */}
                            
