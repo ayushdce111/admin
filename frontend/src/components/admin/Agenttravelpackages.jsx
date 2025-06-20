@@ -40,8 +40,8 @@ const ChangeStatusButton = ({ row }) => {
     // nextStatus==="" ? setupdatedTextStatus("Pending") : setupdatedTextStatus(nextStatus);
     handleSubmit(row._id,nextStatus);
   };
-
-  return <button onClick={handleClick} className={`${row.package_status}`}>{row.package_status}</button>;
+// console.log(row.package_status,"<-----------row.package_status")
+  return <button onClick={handleClick} className={`${row.package_status ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.package_status ==="pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.package_status ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.package_status}</button>;
 };
 
 const columns = [
@@ -52,6 +52,7 @@ const columns = [
     renderCell: (params) => <ChangeStatusButton row={params.row} />,
     editable: false
   },
+    { field: 'travelcategory', headerName: 'Category', width: 200 },
   { field: 'title', headerName: 'Title', width: 200, editable: false },
   { field: 'inclusions', headerName: 'Inclusions', width: 300, editable: false },
   { field: "travelMode", headerName: "TravelMode", width: 300, editable: false },
