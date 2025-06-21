@@ -11,7 +11,7 @@ import RefreshHandler from "./RefreshHandler";
 import AdminDashboard from './components/admin/Dashboard';
 import AgentDashboard from './components/agent/Dashboard';
 import CustomerDashboard from './components/customer/Dashboard';
-import DemoDesign from "./components/DemoDesign.jsx"
+import DemoDashboard from "./components/DemoDashboard.jsx"
 
 const PrivateRoute=({element,isAuthenticated})=>{
     return isAuthenticated===true ? element : <Navigate to="/login" />
@@ -26,14 +26,14 @@ function App() {
     <>
     {/* <RefreshHandler setisAuthenticated={setisAuthenticated}/> */}
     <Routes>
-      <Route path='/' element={<DemoDesign/>} />
+      <Route path='/' element={<Login/>} />
       <Route path='/signup' element={<Signup/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/admin/*' element={<AdminDashboard/>} />
       <Route path='/customer/*' element={<CustomerDashboard/>} />
       <Route path='/agent/*' element={<AgentDashboard/>} />
-      <Route path='/DemoDesign/' element={<DemoDesign/>} />
-
+      <Route path='/DemoDashboard/' element={<DemoDashboard/>} />
+      
       
       {/* <Route path='/home' element={<PrivateRoute element={<Home/>} isAuthenticated={isAuthenticated}/>} /> */}
 

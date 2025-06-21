@@ -4,13 +4,103 @@ import { Link, useNavigate } from 'react-router-dom';
 import {ToastContainer} from "react-toastify";
 import { handleError,handleSuccess } from './Toast';
 import axios from "axios";
+import Logo from "../assets/images/logo.png"
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { FaCircleArrowRight } from "react-icons/fa6";
+import { FaCircleArrowLeft } from "react-icons/fa6";
+
+export const NextArrowSliderUnit = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        // right: '10px',
+        right:'2rem',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 1,
+        cursor: 'pointer',
+        color: '#000',
+        fontSize: '24px',
+      }}
+    >
+<FaCircleArrowRight size={30} color="#000"/>
+    </div>
+  );
+};
+
+export const PrevArrowSliderUnit = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        left: '2rem',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 1,
+        cursor: 'pointer',
+        color: '#000',
+        fontSize: '24px',
+      }}
+    >
+            <FaCircleArrowLeft size={30} color="#000"/>
+    </div>
+  );
+};
+
+const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    // nextArrow: <NextArrowSliderUnit />,
+    // prevArrow: <PrevArrowSliderUnit />,
+    arrows: null,
+    responsive: [
+      {
+        breakpoint: 768, // For tablets
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 480, // For mobile
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+    appendDots: dots => (
+    <div
+      style={{
+        position: 'absolute',
+        bottom: '10px',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        zIndex: 2,
+      }}
+    >
+      <ul style={{ margin: 0 }}>{dots}</ul>
+    </div>
+  ),
+  };
 
 function Signup() {
   const navigate = useNavigate();
-  const [formData,setformData]=useState({name:"",email:"",password:"",userrole:"adminrole"});
+  const [formData,setformData]=useState({name:"",email:"",password:"",userrole:""});
   const handleChange = (e)=>{
     setformData({...formData,[e.target.name]:e.target.value});
-    // console.log(formData,"<----------local");
+    console.log(formData,"<----------local");
   }
   const handleSignup = async (e)=>{
     e.preventDefault();
@@ -48,87 +138,135 @@ function Signup() {
   }
   return (
     <>
-        <form onSubmit={handleSignup}>
-          <div className="bg-gray-100 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-                              <div className="bg-white rounded-xl shadow-sm w-full max-w-xs sm:max-w-sm md:max-w-md relative ">
-                                  {/* Yellow header with curved bottom */}
-                                  {/* <div className='backgroundCurve absolute bottom-0 left-0 right-0'>
-                                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#FF0066" d="M47.9,-72.5C62.7,-65,75.8,-52.8,82.5,-37.8C89.1,-22.8,89.4,-5,84.9,10.8C80.5,26.6,71.4,40.3,60.7,52.7C50.1,65.1,37.9,76.2,22.8,83.2C7.7,90.1,-10.2,92.9,-27,89.2C-43.8,85.5,-59.4,75.3,-67.7,61.2C-76,47.1,-76.8,29.1,-77,12.5C-77.2,-4.2,-76.8,-19.5,-71.8,-33.7C-66.8,-48,-57.2,-61.1,-44.5,-69.6C-31.8,-78.1,-15.9,-82,0.3,-82.4C16.5,-82.9,33,-80,47.9,-72.5Z" transform="translate(100 100)" />
-          </svg>
-                                      </div> */}
-                                  <div className="curvedBottom bg-gray-900 text-white text-center py-4 sm:py-18 rounded-t-xl relative overflow-hidden">
-                                     <div className='relative z-9'>
-                                      <h1 className="text-2xl sm:text-3xl font-bold">Welcome </h1>
-                                      <p className="mt-2 text-sm sm:text-base">Registere Now to continue!</p>
-                                      </div>
-                                      {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,320L48,277.3C96,235,192,149,288,122.7C384,96,480,128,576,133.3C672,139,768,117,864,112C960,107,1056,117,1152,112C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg> */}
-                                      {/* Curved bottom effect */}
-                                      {/* <div className="absolute bottom-0 left-0 right-0 h-8 sm:h-10 bg-blue-300 rounded-t-[50%]"></div> */}
-                                      
-                                  </div>
-                                  {/* Form section */}
-                                  
-                                  <div className="p-4 sm:p-6">
-                                    <div className='mb-4'>
-                                      <input
-                    type='text'
-                    name='name'
-                    placeholder='Name'
-                    onChange={handleChange}
-                    className="w-full p-2 sm:p-3 shadow rounded-lg focus:outline-none focus:bg-[#EEEEEE] text-[#2A4759] text-sm sm:text-base"
-                    />
+     
+        
+           
+           
+            
+  
+        <ToastContainer/>
+        <div className='w-[100vw] h-[100vh] bg-[#00809D] p-4   relative overflow-hidden'>
+                            <div className='w-[80%] mx-auto h-full grid grid-cols-1 md:grid-cols-2   p-2 rounded-2xl  relative z-50 '>
+                                <div className='hidden h-full  rounded-l-2xl md:flex flex-col justify-between bg-transparent border-10 border-[#FCECDD]'>
+                
+                                    <div className=' w-full h-1/7 '>
+                                        <div className=' w-40 h-full  p-2 text-left '>
+                                            <img src={Logo} className=' h-full object-contain' />
+                
+                                        </div>
+                
                                     </div>
-                                      <div className="mb-4">
-                                          <input
+                                    <div className=' w-full h-1/3 '>
+                                        <Slider {...settings} className='h-full'>
+                
+                                            <div className='h-[31vh]  rounded-b-2xl'>
+                                                <div className='h-full flex justify-center items-center'>
+                                                    <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Be yourself <br/> Everyone else is already taken </p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div className='h-[31vh]  rounded-b-2xl'>
+                                                <div className='h-full flex justify-center items-center'>
+                                                    <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Be yourself <br/> Everyone else is already taken </p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div className='h-[31vh]  rounded-b-2xl'>
+                                                <div className='h-full flex justify-center items-center'>
+                                                    <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Be yourself <br/> Everyone else is already taken </p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div className='h-[31vh]  rounded-b-2xl'>
+                                                <div className='h-full flex justify-center items-center'>
+                                                    <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Be yourself <br/> Everyone else is already taken </p>
+                                                </div>
+                                                
+                                            </div>
+                
+                                        </Slider>
+                
+                                    </div>
+                
+                                </div>
+                                <div className='bg-[#FCECDD] rounded-r-2xl h-min md:h-full w-full py-10 md:p-0'>
+                                    <div className=' flex flex-col gap-6 justify-center items-center tracking-wide h-full p-2'>
+                                        <div className=' p-2 w-[70%]'>
+                                            <p className='text-5xl text-[#00809D] inline-block font-bold'>SignUp</p>
+                                        </div>
+                                        <div className='w-[70%]'>
+                                            <p className='text-[#FF7601]'>Already have an account ? <Link to="/Login" className='font-bold '>Login</Link></p>
+                                           
+                                        </div>
+                                        <div className='w-[70%]'>
+                                          <form onSubmit={handleSignup} className=' flex flex-col gap-6 w-full '>
+        
+        
+                    <div>
+                          <input
+                        type='text'
+                        name='name'
+                        placeholder='Name'
+                        onChange={handleChange}
+                        className="font-semibold text-[#183B4E] border-2 border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#183B4E] rounded p-2 w-full bg-[#FF7601] h-11"
+                        />
+                    </div>
+                    <div>
+                       <input
                                               type="email"
                                               placeholder="Email"
                                               name='email'
                                               onChange={handleChange}
-                                              className="w-full p-2 sm:p-3 shadow rounded-lg focus:outline-none focus:bg-[#EEEEEE] text-[#2A4759] text-sm sm:text-base"
+                                              className="font-semibold text-[#183B4E] border-2 border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#183B4E] rounded p-2 w-full bg-[#FF7601] h-11"
                                           />
-                                      </div>
-                                      <div className="mb-4">
-                                          <input
+                    </div>
+                    <div>
+                      <input
                                               type="password"
                                               placeholder="Password"
                                               name='password'
                                               onChange={handleChange}
-                                              className="w-full p-2 sm:p-3 shadow rounded-lg focus:outline-none focus:bg-[#EEEEEE] text-[#2A4759]  text-sm sm:text-base"
+                                              className="font-semibold text-[#183B4E] border border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#183B4E] rounded p-2 w-full bg-[#FF7601] h-11"
                                           />
-                                      </div>
-                                      <div className='mb-4'>
-                                        <select onChange={handleChange} name='userrole' className='text-[#2A4759] rounded-sm w-full shadow outline-none p-2 cursor-pointer bg-gray-900/30'>
+                    </div>
+                    <div>
+                      <select onChange={handleChange} name='userrole' className=' font-semibold text-[#183B4E] border border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#183B4E] rounded p-2 w-full bg-[#FF7601] h-11 cursor-pointer'>
+                      <option value={""}>Select Role</option>
                       <option value={"adminrole"}>Admin</option>
                       <option value={"agentrole"}>Agent</option>
                       <option value={"customerrole"}>Customer</option>
                     </select>
-                                      </div>
-                                      {/* <div className="text-right mb-4">
-                                          <a href="#" className="text-xs sm:text-sm text-gray-600 hover:underline">
-                                              Forgot your password?
-                                          </a>
-                                      </div> */}
-                                      <button type='submit' className="cursor-pointer w-full bg-gray-900 text-white py-2 sm:py-3 rounded-full hover:bg-[#f79a72d0] transition text-sm sm:text-base">
-                                          SignUp
-                                      </button>
-                                      <div className="text-center mt-4">
-                                          <p className="text-xs sm:text-sm text-gray-600">
-                                              Already have account ?{' '}
-                                              <Link to="/Login" className="text-[#2A4759] font-bold hover:underline">
-                                                  Login
-                                              </Link>
+                    </div>
+                    
+          
+                                            
                                                 
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-           
-           
-            
-        </form>
-        <ToastContainer/>
+                                                
+                                                
+                                                <div>
+                                                  
+                                                    <button type='submit' className='bg-[#00809D] p-2 w-full rounded-md text-[#FCECDD] font-bold h-12 cursor-pointer'>SignUp</button>
+                                                </div>
+                                            
+                </form>
+                                        </div>
+                
+                                    </div>
+                
+                                </div>
+                           </div>
+                {/* custom */}
+                <div id="container" className='absolute left-0 right-0 bottom-[-1rem] z-1'>
+                  <div id="container-inside">
+                      <div id="circle-small"></div>
+                      <div id="circle-medium"></div>
+                      <div id="circle-large"></div>
+                      <div id="circle-xlarge"></div>
+                      <div id="circle-xxlarge"></div>
+                  </div>
+                </div>
+                {/* custom */}
+                        </div>
     </>
   )
 }

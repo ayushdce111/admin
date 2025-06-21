@@ -152,10 +152,10 @@ const DemoDesign = () => {
                             
                                 
                                 <div>
-                                    <input type='email' placeholder='Email' className='text-[#FCECDD] border-2 border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#FCECDD] rounded p-2 w-full bg-[#FF7601] h-11'/>
+                                    <input type='email' placeholder='Email' className='font-semibold text-[#183B4E] border-2 border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#183B4E] rounded p-2 w-full bg-[#FF7601] h-11'/>
                                 </div>
                                 <div>
-                                    <input type='text' placeholder='Password' className='text-[#FCECDD] border border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#FCECDD] rounded p-2 w-full bg-[#FF7601] h-11'/>
+                                    <input type='text' placeholder='Password' className='font-semibold text-[#183B4E] border border-gray-200 outline-none hover:border-[#F3A26D] placeholder:text-[#183B4E] rounded p-2 w-full bg-[#FF7601] h-11'/>
                                 </div>
                                 <div>
                                     <button className='bg-[#00809D] p-2 w-full rounded-md text-[#FCECDD] font-bold h-12 cursor-pointer'>LOGIN</button>
