@@ -41,21 +41,21 @@ const ChangeStatusButton = ({ row }) => {
     handleSubmit(row._id,nextStatus);
   };
 // console.log(row.agentStatus,"<-----------row.agentStatus")
-  return <button onClick={handleClick} className={`${row.agentStatus ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.agentStatus ==="Pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.agentStatus ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.agentStatus}</button>;
+  return <button onClick={handleClick} className={`customButtom ${row.agentStatus ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.agentStatus ==="Pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.agentStatus ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.agentStatus}</button>;
 };
 
 const columns = [
   
-    { field: 'name', headerName: 'Name', width: 150,editable: false  },
-  { field: 'email', headerName: 'Email', width: 200, editable: false },
-  { field: 'password', headerName: 'Password', width: 300, editable: false },
-  { field: "submittedAt", headerName: "Submitted At", width: 300, editable: false },
+    { field: 'name', headerName: 'Name', width: 150,editable: false ,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: 'email', headerName: 'Email', width: 200, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'password', headerName: 'Password', width: 300, editable: false,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: "submittedAt", headerName: "Submitted At", width: 300, editable: false,headerClassName: 'custom-dataGrid-Column-design' },
   {
     field: 'agentStatus',
     headerName: 'Status',
     width: 100,
     renderCell: (params) => <ChangeStatusButton row={params.row} />,
-    editable: false
+    editable: false,headerClassName: 'custom-dataGrid-Column-design',flex:1
   }
   
 ];

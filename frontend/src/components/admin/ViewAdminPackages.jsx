@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 // import "../../assets/css/viewpackages.css";
 // import ViewDataTable from "./ViewDataTable";
 import { DataGrid } from '@mui/x-data-grid';
+import "../../assets/css/DataGridTable.css"
 
 function ViewAdminPackages() {
     const UserEmail= localStorage.getItem("userEmail");
@@ -24,15 +25,15 @@ function ViewAdminPackages() {
 const columns = [
 
   
-  { field: 'travelcategory', headerName: 'Category', width: 200 },
-  { field: 'title', headerName: 'Title', width: 200 },
-  { field: 'inclusions', headerName: 'Inclusions', width: 300 },
-  {field:"travelMode",headerName:"TravelMode",width:300},
-  {field:"prices",headerName:"Prices",width:300},
-  { field: 'duration', headerName: 'Duration', width: 200 },
-  { field: 'destinations', headerName: 'Destinations', width: 300 },
-  { field: 'description', headerName: 'Description', width: 200 },
-  { field: 'availability', headerName: 'Availability', width: 300 },
+  { field: 'travelcategory', headerName: 'Category', width: 150 ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'title', headerName: 'Title', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: 'inclusions', headerName: 'Inclusions', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
+  {field:"travelMode",headerName:"TravelMode",width:150,headerClassName: 'custom-dataGrid-Column-design'},
+  {field:"prices",headerName:"Prices",width:150,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'duration', headerName: 'Duration', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: 'destinations', headerName: 'Destinations', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: 'description', headerName: 'Description', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: 'availability', headerName: 'Availability', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
 ];
 const rows=alltravelPackages;
 const getRowId = (alltravelPackages) => {
@@ -50,10 +51,10 @@ const getRowId = (alltravelPackages) => {
             
             sx={{
     '& .MuiDataGrid-columnHeaders': {
-      backgroundColor: 'red', 
+      // backgroundColor: 'red', 
     //   color: '#fff',  
     
-    fontWeight: 'bold', 
+    // fontWeight: 'bold', 
     height:"45px"           
     },
   }}/>

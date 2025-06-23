@@ -11,7 +11,19 @@ const EnquirySchema = new Schema({
         type:String,
         required:true,
     },
-    message:{
+    travelernumber:{
+        type:String,
+        required:true,
+    },
+    leavingFrom:{
+        type:String,
+        required:true,
+    },
+    goingTo:{
+        type:String,
+        required:true,
+    },
+    additionalDetails:{
         type:String,
         required:true,
     },

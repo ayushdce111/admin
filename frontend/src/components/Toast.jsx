@@ -9,6 +9,7 @@ export const handleSuccess = (msg)=>{
         pauseOnHover: true,
         pauseOnFocusLoss: false,
         pauseOnBlur: true,
+        style: { background: '#FCECDD ',color:"#00809D" },
         });
 }
 

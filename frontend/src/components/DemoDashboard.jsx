@@ -70,7 +70,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     
         <div className="flex min-h-screen overflow-hidden ">
                     {/* Sidebar */}
-                    <div className={`max-h-screen overflow-auto fixed md:static  left-0 bg-gray-900 text-white transition-all duration-300 z-50 
+                    <div className={`max-h-screen overflow-auto fixed md:static  left-0 bg-[#4e4e4e] text-white transition-all duration-300 z-50 
                         ${isSidebarOpen ? 'w-64' : 'w-16'} md:w-64 flex flex-col`}>
                         {/* Logo and Toggle Button */}
                         <div className="flex items-center justify-between p-4 border-b-1">
@@ -91,7 +91,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                             <ul className="space-y-2">
                                      
                                           <li >
-                                           <Link to={"/admin/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/' ? 'bg-gray-700' : ''}`}>
+                                           <Link to={"/admin/"} className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '/admin/' ? 'bg-[#FF7601]' : ''}`}>
                                             <FaHome className="w-5 h-5" />
                                             {(isSidebarOpen || window.innerWidth >= 768) && <span>Dashboard</span>}
                                             </Link>
@@ -102,7 +102,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                         <li>
                                           <Link to={""}
                                             onClick={() => toggleMenu('menu1')}
-                                            className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/AddPackages/' || pathname === '/admin/ViewAdminPackages/' ? 'bg-gray-700' : ''}`}
+                                            className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '/admin/AddPackages/' || pathname === '/admin/ViewAdminPackages/' ? 'bg-gray-700' : ''}`}
                                           >
                                             <FaHome className="w-5 h-5" />
                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Packages</span>}
@@ -110,14 +110,14 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                           </Link>
                                 
                                           {openMenus.menu1 && (
-                                            <ul className="pl-6 mt-1 space-y-1">
+                                            <ul className="pl-6 mt-1 space-y-1 ">
                                               <li>
-                                                <Link to={"/admin/AddPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/AddPackages/' ? 'bg-gray-700' : ''}`}>
+                                                <Link to={"/admin/AddPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '/admin/AddPackages/' ? 'bg-gray-700' : ''}`}>
                                                   Add Packages
                                                 </Link>
                                               </li>
                                               <li>
-                                                <Link to={"/admin/ViewAdminPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/ViewAdminPackages/' ? 'bg-gray-700' : ''}`}>
+                                                <Link to={"/admin/ViewAdminPackages/"} className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '/admin/ViewAdminPackages/' ? 'bg-gray-700' : ''}`}>
                                                   View Packages
                                                 </Link>
                                               </li>
@@ -128,7 +128,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                           )}
                                         </li>
                                          <li >
-                                           <Link to={"/admin/CustomerEnquiry/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/CustomerEnquiry/' ? 'bg-gray-700' : ''}`}>
+                                           <Link to={"/admin/CustomerEnquiry/"} className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '/admin/CustomerEnquiry/' ? 'bg-gray-700' : ''}`}>
                                             {/* <FaHome  /> */}
                                             <HiMiniUserGroup className="w-5 h-5" />
 
@@ -136,13 +136,13 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                             </Link>
                                           </li>
                                           <li >
-                                           <Link to={"/admin/agenttravelpackages/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/agenttravelpackages/' ? 'bg-gray-700' : ''}`}>
+                                           <Link to={"/admin/agenttravelpackages/"} className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '/admin/agenttravelpackages/' ? 'bg-gray-700' : ''}`}>
                                             <FaUserSecret  className="w-5 h-5" />
                                             {(isSidebarOpen || window.innerWidth >= 768) && <span>Agents Package</span>}
                                             </Link>
                                           </li>
                                           <li >
-                                           <Link to={"/admin/agentslist/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/agentslist/' ? 'bg-gray-700' : ''}`}>
+                                           <Link to={"/admin/agentslist/"} className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '/admin/agentslist/' ? 'bg-gray-700' : ''}`}>
                                             <FaUserSecret  className="w-5 h-5" />
                                             {(isSidebarOpen || window.innerWidth >= 768) && <span>Agents List</span>}
                                             </Link>
@@ -204,7 +204,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                         {/* Settings */}
                         <ul>
                          <li >
-                            <Link to={""} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '' ? 'bg-gray-700' : ''}`}>
+                            <Link to={""} className={` flex items-center space-x-3 p-4 hover:bg-[#FF7601] ${pathname === '' ? 'bg-[#FF7601]' : ''}`}>
                             <FaCog className="w-5 h-5" />
                             {(isSidebarOpen || window.innerWidth >= 768) && <span>Settings</span>}
                             </Link>

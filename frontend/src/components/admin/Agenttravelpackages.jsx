@@ -41,7 +41,7 @@ const ChangeStatusButton = ({ row }) => {
     handleSubmit(row._id,nextStatus);
   };
 // console.log(row.package_status,"<-----------row.package_status")
-  return <button onClick={handleClick} className={`${row.package_status ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.package_status ==="pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.package_status ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.package_status}</button>;
+  return <button onClick={handleClick} className={`customButtom ${row.package_status ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.package_status ==="pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.package_status ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.package_status}</button>;
 };
 
 const columns = [
@@ -50,19 +50,20 @@ const columns = [
     headerName: 'Status',
     width: 100,
     renderCell: (params) => <ChangeStatusButton row={params.row} />,
-    editable: false
+    editable: false,
+    headerClassName: 'custom-dataGrid-Column-design'
   },
-    { field: 'user_email', headerName: 'Agent Email', width: 300, editable: false },
-    { field: 'travelcategory', headerName: 'Category', width: 150 },
-  { field: 'title', headerName: 'Title', width: 200, editable: false },
-  { field: 'inclusions', headerName: 'Inclusions', width: 300, editable: false },
-  { field: "travelMode", headerName: "TravelMode", width: 300, editable: false },
-  { field: "prices", headerName: "Prices", width: 300, editable: false },
-  { field: 'duration', headerName: 'Duration', width: 200, editable: false },
-  { field: 'destinations', headerName: 'Destinations', width: 300, editable: false },
-  { field: 'description', headerName: 'Description', width: 200, editable: false },
-  { field: 'availability', headerName: 'Availability', width: 300, editable: false },
-  { field: 'submittedAt', headerName: 'Added On', width: 300, editable: false },
+    { field: 'user_email', headerName: 'Agent Email', width: 300, editable: false,headerClassName: 'custom-dataGrid-Column-design' },
+    { field: 'travelcategory', headerName: 'Category', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: 'title', headerName: 'Title', width: 200, editable: false,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: 'inclusions', headerName: 'Inclusions', width: 300, editable: false,headerClassName: 'custom-dataGrid-Column-design' },
+  { field: "travelMode", headerName: "TravelMode", width: 300, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: "prices", headerName: "Prices", width: 300, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'duration', headerName: 'Duration', width: 200, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'destinations', headerName: 'Destinations', width: 300, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'description', headerName: 'Description', width: 200, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'availability', headerName: 'Availability', width: 300, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
+  { field: 'submittedAt', headerName: 'Added On', width: 300, editable: false ,headerClassName: 'custom-dataGrid-Column-design'},
 ];
 const rows = allAgentPackages;
 

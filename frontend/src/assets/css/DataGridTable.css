@@ -1,0 +1,24 @@
+.custom-dataGrid-Column-design{
+    background-color: #e5a570!important;
+    color: #FCECDD;
+    
+}
+.custom-dataGrid-Column-design .MuiDataGrid-columnHeaderTitle.css-1gqmilo-MuiDataGrid-columnHeaderTitle{
+    font-weight: bold!important;
+    letter-spacing: 0.5px;
+    /* font-size: 1rem; */
+}
+
+.MuiDataGrid-row{
+    background-color: #e0c0ab;
+}
+
+.MuiDataGrid-row.Mui-selected{
+    background-color: #e0c0ab!important;
+}
+.MuiDataGrid-row:hover{
+    background-color: #e8e2de!important;
+}
+.customButtom{
+    line-height: 2rem;
+}

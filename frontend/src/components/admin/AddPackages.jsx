@@ -92,7 +92,8 @@ try{
   }
 
   return (
-    <div className='pt-3'>
+    <div className='pt-2'>
+      <h2 className='font-bold text-2xl text-[#FCECDD] py-2 px-2 mb-4 bg-[#e5a570]'>Travel Package Form </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className='grid grid-cols-2 gap-4 '>
@@ -229,9 +230,9 @@ try{
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 cursor-pointer"
+          className="w-full bg-[#e5a570] text-white p-2 rounded-md hover:bg-[#F3A26D] font-semibold mb-2 cursor-pointer"
         >
-          Add Tour Packages
+          Add Travel Packages
         </button>
       </form>
       <ToastContainer/>
