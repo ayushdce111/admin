@@ -5,6 +5,8 @@ import {handleSuccess} from "../Toast.jsx";
 // import axios from "axios";
 import AgentAddPackages from "./AgentAddPackages.jsx";
 import AgentViewPackages from "./AgentViewPackages.jsx";
+import AgentViewLeads from "./AgentViewLeads.jsx";
+
 // import ViewEnquiry from "./ViewEnquiry.jsx"
 import { IoCaretDownSharp } from "react-icons/io5";
 import { AiFillDingtalkCircle } from "react-icons/ai";
@@ -121,6 +123,12 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                             </ul>
                                           )}
                                         </li>
+                                        <li >
+                                           <Link to={"/agent/viewleads"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/agent/viewleads' ? 'bg-gray-700' : ''}`}>
+                                            <FaHome className="w-5 h-5" />
+                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>View Leads</span>}
+                                            </Link>
+                                          </li>
                                          {/* <li >
                                            <Link to={"/admin/ViewEnquiry/"} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/admin/ViewEnquiry/' ? 'bg-gray-700' : ''}`}>
                                             <FaHome className="w-5 h-5" />
@@ -229,6 +237,9 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 <Route path="/" element={<AgentMain />} />
                                  <Route path="/AgentAddPackages/" element={<AgentAddPackages />} />
                                 <Route path="/AgentViewPackages/" element={<AgentViewPackages />} />
+                                
+                                <Route path="/viewleads/" element={<AgentViewLeads />} />
+
                                 {/*<Route path="/ViewEnquiry/" element={<ViewEnquiry />} /> */}
                             </Routes>
                                 {/* <AddPackages /> */}

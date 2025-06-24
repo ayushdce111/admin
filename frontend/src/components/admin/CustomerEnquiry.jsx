@@ -103,6 +103,26 @@ const sendLeadstoAgents = async ()=>{
       const responsData = await Alldata.data;
       console.log(responsData,"<--------------",responsData.message);
       handleSuccess(responsData.message);
+      setrefreshTable(prev=>prev+1);
+      // setAgentName("")
+  }catch(error){
+    console.error(error);
+  }
+
+}
+
+
+
+const removeLeadsfromAgents = async ()=>{
+  const AllSelectedData =Array.from(selectionModel.ids);
+  // console.log(AgentName,"----",AllSelectedData);
+  const completeLeadtoSend = {AgentName:AgentName, AllSelectedData:AllSelectedData}
+
+  try{
+      const Alldata = await axios.post('http://localhost:8000/admin/api/removeleadsfromagent',completeLeadtoSend);
+      const responsData = await Alldata.data;
+      console.log(responsData,"<--------------",responsData.message);
+      handleSuccess(responsData.message);
       setrefreshTable(prev=>prev+1)
   }catch(error){
     console.error(error);
@@ -112,6 +132,7 @@ const sendLeadstoAgents = async ()=>{
 
     return (
     <>
+    <div className='flex justify-between'>
     <div className='flex gap-3 mt-3'>
         <select className='border-0 text-white rounded p-2 cursor-pointer bg-[#69bacd]' onChange={CurrentAgentSelected}>
             <option>Select Agent</option>
@@ -124,6 +145,22 @@ const sendLeadstoAgents = async ()=>{
         </select>
         <button className='bg-[#e5a570] rounded text-white font-bold p-2 cursor-pointer' onClick={sendLeadstoAgents}>Click to Send Leads</button>
     </div>
+
+    <div className='flex gap-3 mt-3'>
+        <select className='border-0 text-white rounded p-2 cursor-pointer bg-[#69bacd]' onChange={CurrentAgentSelected}>
+            <option>Select Agent</option>
+             {AllAgents?.map((data,index)=>{
+                return (<option>{data.email}</option>)
+             })}
+             
+             { }
+             
+        </select>
+        <button className='bg-[#e5a570] rounded text-white font-bold p-2 cursor-pointer' onClick={removeLeadsfromAgents}>Click to Remove Leads</button>
+    </div>
+
+    </div>
+
     <div style={{ height: "calc(100vh - 7.6rem)", width: '100%',paddingTop:"1rem" }}>
             <DataGrid 
             

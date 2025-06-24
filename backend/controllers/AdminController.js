@@ -124,10 +124,11 @@ const {AgentName,AllSelectedData }=req.body;
 // console.log( title,destinations,duration ,description, prices, travelMode, inclusions, availability);
 console.log(AgentName,AllSelectedData,"<-------------req.body")
 try {
-  const bulkOps = AllSelectedData.map((data,index) => ({
+  const bulkOps = AllSelectedData.map((id,index) => ({
       updateOne: {
-        filter: { _id: data },
-        update: { agentassigned: AgentName }
+        filter: { _id: id },
+        // update: { agentassigned: agentassigned.push(AgentName) }
+        update: { $addToSet: { agentassigned: AgentName } }
 
       }
     }));
@@ -153,4 +154,44 @@ try {
   }
 
 }
-module.exports = {sendleadstoagent, updateagentslist, travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages, getagentslist};
+
+
+const removeleadsfromagent=async (req, res) => {
+  const updates = req.body; // Expecting an array of users with _id and new status
+console.log(req.body,"<-----------updatetravelpackages");
+const {AgentName,AllSelectedData }=req.body;
+// console.log( title,destinations,duration ,description, prices, travelMode, inclusions, availability);
+console.log(AgentName,AllSelectedData,"<-------------req.body")
+try {
+  const bulkOps = AllSelectedData.map((id,index) => ({
+      updateOne: {
+        filter: { _id: id },
+        // update: { agentassigned: agentassigned.push(AgentName) }
+        update: { $pull: { agentassigned: AgentName } }
+
+      }
+    }));
+
+    const result = await EnquiryModel.bulkWrite(bulkOps);
+
+    // const result = await EnquiryModel.findByIdAndUpdate(
+    //   AllSelectedData,
+    //   { agentassigned: AgentName },
+    //   { newupdated: true } // return the updated document
+    // );
+
+
+
+    if (!result) {
+      console.log('Lead Data not found');
+    } else {
+      // console.log('Assigned Lead to agent', result);
+      res.status(200).json({message:"Assigned Lead Successfully"});
+    }
+  } catch (error) {
+    console.error('Error assigning leads:', error);
+  }
+
+}
+
+module.exports = {removeleadsfromagent, sendleadstoagent, updateagentslist, travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages, getagentslist};

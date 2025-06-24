@@ -1,6 +1,7 @@
 const travelpackageModel = require("../models/agenttravelpackages.js");
 // const EnquiryModel = require("../models/Enquiry.js");
 // const getAlltravelpackagesModel = require("../models/getAlltravelpackages.js");
+const EnquiryModel = require("../models/CustomerEnquiry.js");
 
 const travelpackages = async(req,res)=>{
     try{
@@ -41,4 +42,20 @@ const getAgenttravelpackages = async (req,res)=>{
 }
 
 
-module.exports = {travelpackages,getAgenttravelpackages};
+
+const getagentassignedleads = async (req,res)=>{
+   
+    const { userEmail } = req.query;
+     console.log(req.body,"serevr  resp",userEmail);
+    try{
+        const allleadsAgent = await EnquiryModel.find({agentassigned:userEmail}).sort({submittedAt:-1});
+        // console.log(packages);
+        res.status(200).json(allleadsAgent);
+        }catch(error){
+            console.log(error);
+            res.status(500).json({message:error});
+        }
+}
+
+
+module.exports = {travelpackages,getAgenttravelpackages, getagentassignedleads};
