@@ -6,10 +6,11 @@ import {handleSuccess} from "../Toast.jsx";
 import AgentAddPackages from "./AgentAddPackages.jsx";
 import AgentViewPackages from "./AgentViewPackages.jsx";
 import AgentViewLeads from "./AgentViewLeads.jsx";
-
+import { WalletProvider } from '../WalletContext.jsx';
 // import ViewEnquiry from "./ViewEnquiry.jsx"
 import { IoCaretDownSharp } from "react-icons/io5";
 import { AiFillDingtalkCircle } from "react-icons/ai";
+import DashboardHeader from "./DashboardHeader.jsx";
 
 // const { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } = window.ReactIcons;
 import { FaHome, FaUsers, FaFolder, FaCalendar, FaFileAlt, FaCog, FaBars, FaBell, FaChevronDown, FaSearch } from 'react-icons/fa';
@@ -63,7 +64,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   }, [userEmail, navigate]);
   return (
     <>
-    
+    <WalletProvider>
         <div className="flex min-h-screen overflow-hidden ">
                     {/* Sidebar */}
                     <div className={`max-h-screen overflow-auto fixed md:static  left-0 bg-gray-900 text-white transition-all duration-300 z-50 
@@ -212,23 +213,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 />
                                 <FaSearch className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
                             </div> */}
-                            <div className="flex items-center space-x-3 ml-auto">
-                                {/* <FaBell className="w-5 h-5 text-gray-500" /> */}
-                                {/* <img src="" alt="User" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border" /> */}
-                                {/* <AiFillDingtalkCircle className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" /> */}
-                                <span className='capitalize text-sm'>{userEmail} </span>
-                                <button onClick={handleLogout} className='cursor-pointer border border-gray-900 rounded bg-gray-900 text-white hover:bg-gray-700  px-2 py-1 '>LOGOUT</button>
-                                {/* <div className=' border p-1 rounded-sm relative'>
-                                    <div className='flex gap-2 items-center'>
-                                        <span className="hidden sm:inline text-sm sm:text-base">Tom Cook</span>
-                                        <FaChevronDown className="w-4 h-4 text-gray-500" />
-                                    </div>
-                                    <div className='absolute top-[100%] shadow w-full flex flex-col bg-gray-300 text-sm'>
-                                        <button onClick={handleLogout} className='cursor-pointer border border-amber-600 rounded hover:bg-blue-200  px-2 py-1 '>LOGOUT</button>
-                                    </div>
-                                </div> */}
-                                
-                            </div>
+                            <DashboardHeader userEmail={userEmail} handleLogout={handleLogout}/>
                         </div>
 
                         {/* Main Area */}
@@ -247,6 +232,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                         </div>
                     </div>
                 </div>
+                </WalletProvider>
         <ToastContainer/>
     </>
 

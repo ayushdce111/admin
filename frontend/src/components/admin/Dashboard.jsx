@@ -12,6 +12,7 @@ import { IoCaretDownSharp } from "react-icons/io5";
 import { AiFillDingtalkCircle } from "react-icons/ai";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaUserSecret } from "react-icons/fa6";
+import AgentCredits from "./AgentCredits.jsx"
 
 
 
@@ -49,7 +50,10 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
             const [openMenus, setOpenMenus] = useState({
                 menu1: false,
-                submenu12: false,
+                submenu11: false,
+
+                menu2: false,
+                submenu21: false,
               });
 
   const toggleMenu = (menu) => {
@@ -59,8 +63,21 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     }));
   };
       // demo end
+// const [AllAgents, setAllAgents]=useState("");
+// const getallAgents = async () => {
+//       try {
+//         const Alldata = await axios.get('http://localhost:8000/admin/api/agentslist',{userEmail});
+//         setAllAgents(Alldata.data);
+//         // setupdatedTextStatus(Alldata.data)
+//         // console.log(Alldata.data);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+    
 
       useEffect(() => {
+        // getallAgents();
     if (!userEmail) {
       navigate("/login");
     }
@@ -135,25 +152,47 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                             {(isSidebarOpen || window.innerWidth >= 768) && <span>Customer Enquiry</span>}
                                             </Link>
                                           </li>
-                                          <li >
-                                           <Link to={"/admin/agenttravelpackages/"} className={` flex items-center space-x-3 p-4 hover:bg-[#e0c0ab] ${pathname === '/admin/agenttravelpackages/' ? 'bg-[#e5a570]' : ''}`}>
-                                            <FaUserSecret  className="w-5 h-5" />
-                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Agents Package</span>}
-                                            </Link>
-                                          </li>
-                                          <li >
-                                           <Link to={"/admin/agentslist/"} className={` flex items-center space-x-3 p-4 hover:bg-[#e0c0ab] ${pathname === '/admin/agentslist/' ? 'bg-[#e5a570]' : ''}`}>
-                                            <FaUserSecret  className="w-5 h-5" />
-                                            {(isSidebarOpen || window.innerWidth >= 768) && <span>Agents List</span>}
-                                            </Link>
-                                          </li>
+                                          
+                                         
                                 {/* <li >
                                            <Link to={""} className={` flex items-center space-x-3 p-4 hover:bg-gray-700 ${pathname === '/menu/' ? 'bg-gray-700' : ''}`}>
                                             <FaHome className="w-5 h-5" />
                                             {(isSidebarOpen || window.innerWidth >= 768) && <span>MNEU</span>}
                                             </Link>
                                           </li> */}
-                                        
+                                        <li>
+                                          <Link to={""}
+                                            onClick={() => toggleMenu('menu2')}
+                                            className={` flex items-center space-x-3 p-4 hover:bg-[#e0c0ab] ${ pathname === '/admin/agentcredits/' || pathname === '/admin/agentslist/' || pathname === '/admin/agenttravelpackages/' ? 'bg-[#e5a570]' : ''}`}
+                                          >
+                                            <FaUserSecret  className="w-5 h-5" />
+                                           {(isSidebarOpen || window.innerWidth >= 768) && <span>Agent</span>}
+                                            <span className={`transform transition-transform ml-auto ${openMenus.menu1 ? 'rotate-90' : ''}`}><IoCaretDownSharp /></span>
+                                          </Link>
+                                
+                                          {openMenus.menu2 && (
+                                            <ul className="pl-6 mt-1 space-y-1">
+                                              <li>
+                                                <Link to={"/admin/agentslist/"} className={` flex items-center space-x-3 p-4 hover:bg-[#e0c0ab] ${pathname === '/admin/agentslist/' ? 'bg-[#e5a570]' : ''}`}>
+                                                  Agents List
+                                                </Link>
+                                              </li>
+                                              <li>
+                                                <Link to={"/admin/agenttravelpackages/"} className={` flex items-center space-x-3 p-4 hover:bg-[#e0c0ab] ${pathname === '/admin/agenttravelpackages/' ? 'bg-[#e5a570]' : ''}`}>
+                                                  Agents Package
+                                                </Link>
+                                              </li>
+                                              <li>
+                                                <Link to={"/admin/agentcredits/"} className={` flex items-center space-x-3 p-4 hover:bg-[#e0c0ab] ${pathname === '/admin/agentcredits/' ? 'bg-[#e5a570]' : ''}`}>
+                                                  Agents Credit
+                                                </Link>
+                                              </li>
+                                
+                                              
+                                              
+                                            </ul>
+                                          )}
+                                        </li>
                                       </ul>
                                       
                             
@@ -252,6 +291,8 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                                 <Route path="/CustomerEnquiry/" element={<CustomerEnquiry />} />
                                 <Route path="/agenttravelpackages/" element={<Agenttravelpackages />} />
                                 <Route path="/agentslist/" element={<Agentslist />} />
+                                <Route path="/agentcredits/" element={<AgentCredits />} />
+                                
 
                                 
                             </Routes>

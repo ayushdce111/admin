@@ -194,4 +194,42 @@ try {
 
 }
 
-module.exports = {removeleadsfromagent, sendleadstoagent, updateagentslist, travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages, getagentslist};
+const addCredittoAgent=async (req, res) => {
+const updates = req.body; // Expecting an array of users with _id and new status
+// console.log(req.body,"<-----------updatetravelpackages");
+const {Credit, AllSelectedData }=req.body;
+// console.log(updates,"<-------------updates");
+// console.log( title,destinations,duration ,description, prices, travelMode, inclusions, availability);
+try {
+    // const result = await UserModel.findByIdAndUpdate(
+    //   updated_id,
+    //   { agentStatus: nextStatus },
+    //   { newupdated: true } // return the updated document
+    // );
+if(Credit.length==0){
+  return " ";
+}
+    const bulkOps = AllSelectedData.map((id,index) => ({
+      updateOne: {
+        filter: { _id: id },
+        // update: { agentassigned: agentassigned.push(AgentName) }
+        update: { $inc: { agentCredit: Credit } }
+
+      }
+    }));
+
+    const result = await UserModel.bulkWrite(bulkOps);
+
+    res.status(200).json({message:"Credit Added Successfully"});
+
+    if (!result) {
+      console.log('Agent Data not found');
+    } else {
+      console.log('Updated agent data:', result);
+    }
+  } catch (error) {
+    console.error('Error updating agent data:', error);
+  }
+}
+
+module.exports = {addCredittoAgent, removeleadsfromagent, sendleadstoagent, updateagentslist, travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages, getagentslist};

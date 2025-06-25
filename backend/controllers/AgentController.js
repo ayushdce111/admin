@@ -2,6 +2,7 @@ const travelpackageModel = require("../models/agenttravelpackages.js");
 // const EnquiryModel = require("../models/Enquiry.js");
 // const getAlltravelpackagesModel = require("../models/getAlltravelpackages.js");
 const EnquiryModel = require("../models/CustomerEnquiry.js");
+const UserModel = require("../models/AllUser.js");
 
 const travelpackages = async(req,res)=>{
     try{
@@ -30,7 +31,7 @@ const travelpackages = async(req,res)=>{
 const getAgenttravelpackages = async (req,res)=>{
    
     const { userEmail } = req.query;
-     console.log(req.body,"serevr  resp",userEmail);
+    //  console.log(req.body,"serevr  resp",userEmail);
     try{
         const packagesAgent = await travelpackageModel.find({user_email:userEmail}).sort({submittedAt:-1});
         // console.log(packages);
@@ -46,10 +47,10 @@ const getAgenttravelpackages = async (req,res)=>{
 const getagentassignedleads = async (req,res)=>{
    
     const { userEmail } = req.query;
-     console.log(req.body,"serevr  resp",userEmail);
+    //  console.log(req.body,"serevr  resp",userEmail);
     try{
         const allleadsAgent = await EnquiryModel.find({agentassigned:userEmail}).sort({submittedAt:-1});
-        // console.log(packages);
+        // console.log(allleadsAgent);
         res.status(200).json(allleadsAgent);
         }catch(error){
             console.log(error);
@@ -58,4 +59,15 @@ const getagentassignedleads = async (req,res)=>{
 }
 
 
-module.exports = {travelpackages,getAgenttravelpackages, getagentassignedleads};
+const getagentcredit = async (req,res)=>{
+    const { userEmail } = req.query;
+  try{
+          const agentslist = await UserModel.find({email: userEmail}).sort({submittedAt:-1});
+        //   console.log(agentslist);
+          // const isPassEqual = await bcrypt.compare(password,existingUser.password);
+          res.status(200).json(agentslist);
+          }catch(error){
+              res.status(500).json({message:error});
+          }
+}
+module.exports = {getagentcredit, travelpackages,getAgenttravelpackages, getagentassignedleads};

@@ -24,20 +24,22 @@ function App() {
 
   return (
     <>
-    {/* <RefreshHandler setisAuthenticated={setisAuthenticated}/> */}
-    <Routes>
-      <Route path='/' element={<Login/>} />
-      <Route path='/signup' element={<Signup/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/admin/*' element={<AdminDashboard/>} />
-      <Route path='/customer/*' element={<CustomerDashboard/>} />
-      <Route path='/agent/*' element={<AgentDashboard/>} />
-      <Route path='/DemoDashboard/' element={<DemoDashboard/>} />
-      
-      
-      {/* <Route path='/home' element={<PrivateRoute element={<Home/>} isAuthenticated={isAuthenticated}/>} /> */}
+    
+          {/* <RefreshHandler setisAuthenticated={setisAuthenticated}/> */}
+          <Routes>
+            <Route path='/' element={<Login/>} />
+            <Route path='/signup' element={<Signup/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/admin/*' element={<AdminDashboard/>} />
+            <Route path='/customer/*' element={<CustomerDashboard/>} />
+            <Route path='/agent/*' element={<AgentDashboard/>} />
+            <Route path='/DemoDashboard/' element={<DemoDashboard/>} />
+            
+            
+            {/* <Route path='/home' element={<PrivateRoute element={<Home/>} isAuthenticated={isAuthenticated}/>} /> */}
 
-    </Routes>
+          </Routes>
+    
       
     </>
   )

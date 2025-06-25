@@ -19,7 +19,8 @@ const signup = async (req, res) => {
         // STARTS : for agent status
         
         if(userrole==="agentrole"){
-            user.agentStatus = "Pending"
+            user.agentStatus = "Pending",
+            user.agentCredit = 0
         }
 
         // ENDS : for agent status

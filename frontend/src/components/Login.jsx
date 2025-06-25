@@ -186,19 +186,19 @@ function Login() {
                                     </div>
                                     <div className='h-[31vh]  rounded-b-2xl'>
                                         <div className='h-full flex justify-center items-center'>
-                                            <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Be yourself <br/> Everyone else is already taken </p>
+                                            <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Alone we can do so little, together we can do so much </p>
                                         </div>
                                         
                                     </div>
                                     <div className='h-[31vh]  rounded-b-2xl'>
                                         <div className='h-full flex justify-center items-center'>
-                                            <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Be yourself <br/> Everyone else is already taken </p>
+                                            <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Leadership and learning are indispensable to each other </p>
                                         </div>
                                         
                                     </div>
                                     <div className='h-[31vh]  rounded-b-2xl'>
                                         <div className='h-full flex justify-center items-center'>
-                                            <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Be yourself <br/> Everyone else is already taken </p>
+                                            <p className='text-[#FCECDD] text-center text-3xl leading-14 font-semibold tracking-wider'> Try to be a rainbow in someone's cloud </p>
                                         </div>
                                         
                                     </div>

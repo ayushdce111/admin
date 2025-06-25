@@ -25,6 +25,9 @@ const UserSchema = new Schema({
   },
   agentStatus:{
     type: String
+  },
+  agentCredit:{
+    type:Number
   }
 })
 
