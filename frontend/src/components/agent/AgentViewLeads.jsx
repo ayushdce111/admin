@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 // import ViewDataTable from "./ViewDataTable";
 import { DataGrid } from '@mui/x-data-grid';
 import { WalletContext } from '../WalletContext.jsx';
+import { handleError } from '../Toast.jsx';
 
 function AgentViewLeads() {
     // const UserEmail= localStorage.getItem("userEmail");
@@ -18,7 +19,7 @@ function AgentViewLeads() {
         params: { userEmail }
       });
         setallAgentLeads(Alldata.data)
-    // console.log(Alldata.data.length);
+    console.log(Alldata.data,"VERIFY");
     // setWallet(prev=> prev - Alldata.data.length*100);
     }
     getallagentLeads();
@@ -31,15 +32,23 @@ function AgentViewLeads() {
 
 const ChangeStatusButton = ({ row }) => {
 
-  const Buystatus = ['Buy', 'Active'];
+  // const Buystatus = ['Buy', 'Active'];
 
 
   const handleClick = () => {
-    const currentIndex = Buystatus.indexOf("Buy");
-    const nextStatus = Buystatus[(currentIndex + 1) % Buystatus.length];
+    // const currentIndex = Buystatus.indexOf("Buy");
+    // const nextStatus = Buystatus[(currentIndex + 1) % Buystatus.length];
 
     // Update state with new status
     // console.log(allAgentLeads,"<------------nextStatus",row._id)
+
+// (wallet-10)<=0 ? (<>{handleError("Insufficient balance")}{ return ""}</>) : setWallet(prev=>prev-10);
+if (wallet - 10 <= 0) {
+    handleError("Insufficient balance");
+    return "";
+  } else {
+    setWallet(prev => prev - 10);
+  }
 
     setallAgentLeads((prevPackages) =>
       prevPackages.map((pkg) =>
@@ -50,12 +59,13 @@ const ChangeStatusButton = ({ row }) => {
     
     // nextStatus==="" ? setupdatedTextStatus("Pending") : setupdatedTextStatus(nextStatus);
     // console.log(row,"<==========row",allAgentLeads);
-    // console.log(row.boughtby.includes(userEmail),"<--------row.statusnow")
-    handleSubmit(row._id,userEmail);
+    // console.log(allAgentLeads,"<--------row.statusnow")
+    
+    handleSubmit(row._id,userEmail,wallet);
   };
 // console.log(row.agentStatus,"<-----------row.agentStatus")
   // return <button onClick={handleClick} className={`customButtom ${row.agentStatus ==="Approved" ? "bg-green-300 px-2 rounded-md cursor-pointer " : row.agentStatus ==="Pending" ? "bg-yellow-300 px-2 rounded-md cursor-pointer" : row.agentStatus ==="Rejected" ? "bg-red-300 px-2 rounded-md cursor-pointer" : ""} `}>{row.agentStatus}</button>;
-  return <button onClick={handleClick} className={` px-2 text-white customButtom rounded ${row.boughtby.includes(userEmail) ? "bg-green-500" : "bg-gray-800" }`}>{row.boughtby.includes(userEmail) ? "ACTIVE" : "BUY"}</button>
+  return <button  onClick={!(row?.boughtby?.includes(userEmail)) ? handleClick : undefined} className={`cursor-pointer px-2 text-white customButtom rounded ${row?.boughtby?.includes(userEmail) ? "bg-[#529e54]" : "bg-gray-600" }`}>{row?.boughtby?.includes(userEmail) ? "Purchased" : "Buy"}</button>
 };
 const columns = [
   {
@@ -80,23 +90,23 @@ const getRowId = (allAgentLeads) => {
       return allAgentLeads._id; 
     };
 
-    const handleSubmit = async (updated_id,userEmail) => {
+    const handleSubmit = async (updated_id,userEmail,wallet) => {
+      
   // console.log('Submitted data:', allAgents);
-  console.log(updated_id,"-==============",userEmail)
+  console.log(updated_id,"-==============",userEmail,wallet);
 
-  // try{
-  
-  
-  //           const response = await axios.post("http://localhost:8000/admin/api/agentslist", {updated_id, nextStatus});
-  //           const responsData = await response.data;
-  //           console.log(responsData,"<-------------responsData");
-  
-  //           handleSuccess("form submitted")
-  // }catch(error){
-  //   // console.log(error,"<--------to handlew");
-  //   error.status===409 ? handleError(error.response.data.message + " with same name") :"";
+
+  try{
+      const response = await axios.post("http://localhost:8000/agent/api/buylead", {updated_id, userEmail,wallet});
+      const responsData = await response.data;
+      console.log(responsData,"<-------------responsData");
+
+      handleSuccess("Lead Purchased")
+  }catch(error){
+    // console.log(error,"<--------to handlew");
+    error.status===409 ? handleError(error.response.data.message + " with same name") :"";
     
-  // }
+  }
 };
 
 

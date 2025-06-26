@@ -20,10 +20,23 @@ function DashboardHeader({userEmail,handleLogout}) {
             console.log(error);
         }
     }
+    // const updateagentCredit =async ()=>{
+    //     try{
+            
+    //           const Alldata = await axios.post('http://localhost:8000/agent/api/updatecredittoagent',completeLeadtoSend);
+    //           const responsData = await Alldata.data;
+    //           console.log(responsData,"<--------------",responsData.message);
+    //           handleSuccess(responsData.message);
+    //           setrefreshTable(prev=>prev+1);
+    //           // setAgentName("")
+    //       }catch(error){
+    //         console.error(error);
+    //       }
+    // }
     useEffect(()=>{
            
         getagentCredit();
-        
+        // updateagentCredit();
     },[])
   return (
     <>

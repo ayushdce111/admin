@@ -70,4 +70,57 @@ const getagentcredit = async (req,res)=>{
               res.status(500).json({message:error});
           }
 }
-module.exports = {getagentcredit, travelpackages,getAgenttravelpackages, getagentassignedleads};
+
+const buylead=async (req, res) => {
+  
+console.log(req.body,"<-----------lead buy");
+const {updated_id,userEmail,wallet }=req.body;
+// console.log( title,destinations,duration ,description, prices, travelMode, inclusions, availability);
+// console.log(AgentName,AllSelectedData,"<-------------req.body")
+try {
+//   const bulkOps = AllSelectedData.map((id,index) => ({
+//       updateOne: {
+//         filter: { _id: id },
+//         // update: { agentassigned: agentassigned.push(AgentName) }
+//         update: { $addToSet: { agentassigned: AgentName } }
+
+//       }
+//     }));
+
+    // const result = await EnquiryModel.bulkWrite(bulkOps);
+
+const updatedWallet = wallet-10;
+
+if(!(updatedWallet<=0)){
+
+    const creditResult = await UserModel.findOneAndUpdate(
+  { email: userEmail }, // find by email
+  { agentCredit: updatedWallet  }, // update operation
+  { new: true } // return updated document
+
+);
+}
+
+if(!(updatedWallet<=0)){
+
+    const result = await EnquiryModel.findByIdAndUpdate(
+        updated_id,
+        { $addToSet: { boughtby: userEmail } }, // correct usage of $addToSet
+        { new: true } // return the updated document
+        );
+
+    }
+console.log(result,"<===========")
+    if (!result) {
+      console.log('Lead not found');
+    } else {
+      // console.log('Assigned Lead to agent', result);
+      res.status(200).json({message:"Purchased Lead Successfully"});
+    }
+  } catch (error) {
+    console.error('Error buying leads:', error);
+  }
+
+}
+
+module.exports = {buylead, getagentcredit, travelpackages,getAgenttravelpackages, getagentassignedleads};
