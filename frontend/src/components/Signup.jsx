@@ -111,7 +111,7 @@ function Signup() {
 
     }
     try{
-      const res = await axios.post("http://localhost:8000/auth/signup",formData);
+      const res = await API.post("/auth/signup",formData);
       const resJson = await res.data;
       // console.log(resJson,"<----------------------------responsone signup");
       // console.log(resJson,"<----------------resposne LOCAL");
