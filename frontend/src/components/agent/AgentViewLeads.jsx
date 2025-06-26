@@ -1,5 +1,5 @@
 import React,{useState,useContext} from 'react';
-import axios from 'axios';
+import API from "../../../axios.jsx";
 import { useEffect } from 'react';
 // import "../../assets/css/viewpackages.css";
 // import ViewDataTable from "./ViewDataTable";
@@ -15,7 +15,7 @@ function AgentViewLeads() {
   useEffect(()=>{
     try{
     const getallagentLeads =async ()=>{ 
-        const Alldata = await axios.get('http://localhost:8000/agent/api/allleads',{
+        const Alldata = await API.get('/agent/api/allleads',{
         params: { userEmail }
       });
         setallAgentLeads(Alldata.data)
@@ -97,7 +97,7 @@ const getRowId = (allAgentLeads) => {
 
 
   try{
-      const response = await axios.post("http://localhost:8000/agent/api/buylead", {updated_id, userEmail,wallet});
+      const response = await API.post("/agent/api/buylead", {updated_id, userEmail,wallet});
       const responsData = await response.data;
       console.log(responsData,"<-------------responsData");
 

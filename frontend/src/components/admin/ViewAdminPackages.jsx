@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import axios from 'axios';
+import API from "../../../axios.jsx";
 import { useEffect } from 'react';
 // import "../../assets/css/viewpackages.css";
 // import ViewDataTable from "./ViewDataTable";
@@ -12,7 +12,7 @@ function ViewAdminPackages() {
   useEffect(()=>{
     try{
     const getallPackages =async ()=>{ 
-        const Alldata = await axios.get('http://localhost:8000/admin/api/admintravelpackages');
+        const Alldata = await API.get('/admin/api/admintravelpackages');
         setAllTravelPackages(Alldata.data)
     // console.log(Alldata.data);
     }

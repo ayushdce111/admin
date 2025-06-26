@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import {ToastContainer} from "react-toastify";
 import { handleError,handleSuccess } from './Toast';
-import axios from "axios";
+import API from "../../axios.jsx";
 import Logo from "../assets/images/logo.png"
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';

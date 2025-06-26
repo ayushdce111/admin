@@ -1,6 +1,6 @@
 import React,{useContext,useState,useEffect} from 'react'
 import { WalletContext } from '../WalletContext.jsx';
-import axios from 'axios';
+import API from "../../../axios.jsx";
 
 function DashboardHeader({userEmail,handleLogout}) {
     const { setWallet, wallet } = useContext(WalletContext);
@@ -8,7 +8,7 @@ function DashboardHeader({userEmail,handleLogout}) {
     const[AgentCredit,setAgentCredit] = useState("");
     const getagentCredit =async ()=>{ 
          try{
-            const Alldata = await axios.get('http://localhost:8000/agent/api/getagentcredit',{
+            const Alldata = await API.get('/agent/api/getagentcredit',{
             params: { userEmail }
         });
             // console.log(Alldata.data[0].agentCredit,"<--------Alldata.data")

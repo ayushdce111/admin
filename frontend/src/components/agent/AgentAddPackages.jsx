@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {ToastContainer} from "react-toastify";
 import { handleError,handleSuccess } from '../Toast';
-import axios from 'axios';
+import API from "../../axios.jsx";
 
 function AgentAddPackages() {
 
@@ -56,7 +56,7 @@ function AgentAddPackages() {
 try{
 
 
-          const response = await axios.post("http://localhost:8000/agent/api/travelpackages", {UserEmail,formData});
+          const response = await API.post("/agent/api/travelpackages", {UserEmail,formData});
           const responsData = await response.data;
           console.log(responsData,"<-------------responsData");
 

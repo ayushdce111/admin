@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import axios from 'axios';
+import API from "../../../axios.jsx";
 import { useEffect } from 'react';
 // import "../../assets/css/viewpackages.css";
 // import ViewDataTable from "./ViewDataTable";
@@ -21,7 +21,7 @@ const [refreshTable,setrefreshTable]=useState(0);
 
 const getAllAgentName = async ()=>{
   try {
-        const Alldata = await axios.get('http://localhost:8000/admin/api/agentslist');
+        const Alldata = await API.get('/admin/api/agentslist');
          setAllAgents(Alldata?.data?.filter((data)=>data.agentStatus ==="Approved"))
         // setAllAgents(Alldata.data);
         // setupdatedTextStatus(Alldata.data)
@@ -96,7 +96,7 @@ if(Credit && AllSelectedData){
 
   try{
     
-      const Alldata = await axios.post('http://localhost:8000/admin/api/addcredittoagent',completeLeadtoSend);
+      const Alldata = await API.post('/admin/api/addcredittoagent',completeLeadtoSend);
       const responsData = await Alldata.data;
       console.log(responsData,"<--------------",responsData.message);
       handleSuccess(responsData.message);

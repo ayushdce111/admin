@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { handleSuccess } from './Toast';
 import {ToastContainer} from "react-toastify";
-import axios from "axios";
+import API from "../../axios.jsx";
 
 const Home = () => {
   const [loggedInUser,setloggedInUser]=useState("");
@@ -30,7 +30,7 @@ const Home = () => {
       }
     }
     // const token = localStorage.getItem("token");
-    const response = await axios.get("http://localhost:8000/products",headers);
+    const response = await API.get("/products",headers);
     const data = response.data;
     setUserProducts(data);
     console.log(data);

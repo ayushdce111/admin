@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import axios from 'axios';
+import API from "../../../axios.jsx";
 import { useEffect } from 'react';
 // import "../../assets/css/viewpackages.css";
 // import ViewDataTable from "./ViewDataTable";
@@ -21,7 +21,7 @@ const [refreshTable,setrefreshTable]=useState(0);
 
     const getallEnquiry =async ()=>{ 
       try{
-        const Alldata = await axios.get('http://localhost:8000/admin/api/enquiry');
+        const Alldata = await API.get('/admin/api/enquiry');
         setAllEnquiry(Alldata.data)
         // setSelectionModel(Alldata.data[0]._id)
     // console.log(Alldata.data);
@@ -32,7 +32,7 @@ const [refreshTable,setrefreshTable]=useState(0);
   }
 const getAllAgentName = async ()=>{
   try {
-        const Alldata = await axios.get('http://localhost:8000/admin/api/agentslist');
+        const Alldata = await API.get('/admin/api/agentslist');
          setAllAgents(Alldata?.data?.filter((data)=>data.agentStatus ==="Approved"))
         // setAllAgents(Alldata.data);
         // setupdatedTextStatus(Alldata.data)
@@ -99,7 +99,7 @@ const sendLeadstoAgents = async ()=>{
   const completeLeadtoSend = {AgentName:AgentName, AllSelectedData:AllSelectedData}
 
   try{
-      const Alldata = await axios.post('http://localhost:8000/admin/api/sendleadstoagent',completeLeadtoSend);
+      const Alldata = await API.post('/admin/api/sendleadstoagent',completeLeadtoSend);
       const responsData = await Alldata.data;
       console.log(responsData,"<--------------",responsData.message);
       handleSuccess(responsData.message);
@@ -119,7 +119,7 @@ const removeLeadsfromAgents = async ()=>{
   const completeLeadtoSend = {AgentName:AgentName, AllSelectedData:AllSelectedData}
 
   try{
-      const Alldata = await axios.post('http://localhost:8000/admin/api/removeleadsfromagent',completeLeadtoSend);
+      const Alldata = await API.post('/admin/api/removeleadsfromagent',completeLeadtoSend);
       const responsData = await Alldata.data;
       console.log(responsData,"<--------------",responsData.message);
       handleSuccess(responsData.message);

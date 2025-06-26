@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import axios from "axios";
+import API from "../../../axios.jsx";
 // import CustomSelectEditor from './CustomSelectEditor.jsx';
 
 const Agenttravelpackages = () => {
@@ -11,7 +11,7 @@ const Agenttravelpackages = () => {
   useEffect(() => {
     const getallAgentPackages = async () => {
       try {
-        const Alldata = await axios.get('http://localhost:8000/admin/api/agenttravelpackages');
+        const Alldata = await API.get('/admin/api/agenttravelpackages');
         setAllAgentPackages(Alldata.data);
         // setupdatedTextStatus(Alldata.data)
         // console.log(Alldata.data);
@@ -78,7 +78,7 @@ const handleSubmit = async (updated_id,nextStatus) => {
   try{
   
   
-            const response = await axios.post("http://localhost:8000/admin/api/updateagentpackages", {updated_id, nextStatus});
+            const response = await API.post("/admin/api/updateagentpackages", {updated_id, nextStatus});
             const responsData = await response.data;
             console.log(responsData,"<-------------responsData");
   
