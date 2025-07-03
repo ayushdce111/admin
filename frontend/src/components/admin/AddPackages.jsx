@@ -15,14 +15,25 @@ function AddPackages() {
     inclusions: '',
     availability: '',
     travelcategory:'',
+    image_upload:null
   });
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+
+    
+
+    if(e.target.name ==="image_upload"){
+      
+      setFormData({ ...formData, ["image_upload"]: e.target.files[0] });
+      
+    }else{
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    }
+    
+    };
 
   const validateForm = () => {
     const newErrors = {};
@@ -35,11 +46,12 @@ function AddPackages() {
     if (!formData.inclusions) newErrors.inclusions = 'Inclusions are required';
     if (!formData.availability) newErrors.availability = 'Availability is required';
     if (!formData.travelcategory) newErrors.travelcategory = 'Travel category is required';
+    if (!formData.image_upload) newErrors.image_upload = 'Image is required';
 
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
@@ -48,23 +60,42 @@ function AddPackages() {
 
       const Token= localStorage.getItem("token");
       const UserEmail= localStorage.getItem("userEmail");
+ 
+      // cloudinary Starts
+      const CLOUDINARY_UPLOAD_PRESET = 'my_preset';
+      const CLOUDINARY_CLOUD_NAME = 'dkidq9wlq';
+
+      const uploadToCloudinary = async () => {
+          const data = new FormData();
+          data.append('file', formData.image_upload);
+          data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+          const res = await API.post(
+            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+            data
+          );
+          return res.data;
+  };
+const cloudinaryRes = await uploadToCloudinary();
+// cloudinary ENDS
 
       if(Token && UserEmail){
         
        const SubmitTravelPackages = async ()=>{
-try{
+
+          try{
 
 
-          const response = await API.post("/admin/api/travelpackages", {UserEmail,formData});
-          const responsData = await response.data;
-          console.log(responsData,"<-------------responsData");
+                    const response = await API.post("/admin/api/travelpackages", {UserEmail,formData,imageUrl: cloudinaryRes.secure_url,publicId: cloudinaryRes.public_id,});
+                    const responsData = await response.data;
+                    console.log(responsData,"<-------------responsData");
 
-          handleSuccess("form submitted")
-}catch(error){
-  // console.log(error,"<--------to handlew");
-  error.status===409 ? handleError(error.response.data.message + " with same name") :"";
-  
-}
+                    handleSuccess("form submitted")
+          }catch(error){
+            // console.log(error,"<--------to handlew");
+            error.status===409 ? handleError(error.response.data.message + " with same name") :"";
+            
+          }
+
         }
 
         SubmitTravelPackages();
@@ -192,6 +223,19 @@ try{
             placeholder="e.g., 20 seats available"
           />
           {errors.availability && <p className="text-red-500 text-sm">{errors.availability}</p>}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Upload Image</label>
+          <input 
+            type="file" 
+            name="image_upload"
+            // value={formData.image_upload}
+            onChange={handleChange} 
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            placeholder="choose image "
+            required />
+          
+          {errors.image_upload && <p className="text-red-500 text-sm">{errors.image_upload}</p>}
         </div>
 </div>
         

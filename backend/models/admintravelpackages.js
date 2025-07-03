@@ -46,6 +46,12 @@ const travelpackagesSchema = new Schema({
   travelcategory:{
     type:String,
     required:true,
+  },
+  image_url: {
+    type:String,
+  },
+  image_id:{
+    type:String,
   }
 })
 

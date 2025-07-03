@@ -6,7 +6,9 @@ const UserModel = require("../models/AllUser.js");
 
 const travelpackages = async(req,res)=>{
     try{
-        // console.log(req.body.formData,"<---------req.body 1");
+        // console.log(req.body,"<---------req.body 1");
+        const image_id = req.body.publicId;
+        const image_url = req.body.imageUrl;
         const user_email = req.body.UserEmail;
         const { title,destinations,duration ,description, prices, travelMode, inclusions, availability, travelcategory } = req.body.formData;
         const existingtitle = await travelpackageModel.findOne({ title });
@@ -14,7 +16,7 @@ const travelpackages = async(req,res)=>{
             return res.status(409).json({ success: false, message: 'Package already exists' });
         }
         //  console.log(req.body.UserEmail,"<---------req.body 2");
-        const completePackage = new travelpackageModel({ title,destinations,duration ,description, prices, travelMode, inclusions, availability, user_email,travelcategory });
+        const completePackage = new travelpackageModel({ title,destinations,duration ,description, prices, travelMode, inclusions, availability, user_email,travelcategory, image_url,image_id  });
                 // user.password = await bcrypt.hash(password, 10);
                 // console.log(user,"<-------------user.userRole--",user.userrole)
                 await completePackage.save();

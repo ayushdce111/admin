@@ -25,11 +25,12 @@ function ViewAdminPackages() {
 const columns = [
 
   
+  // { field: 'image_url', headerName: 'image_url', width: 150 ,headerClassName: 'custom-dataGrid-Column-design'},
   { field: 'travelcategory', headerName: 'Category', width: 150 ,headerClassName: 'custom-dataGrid-Column-design'},
   { field: 'title', headerName: 'Title', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
   { field: 'inclusions', headerName: 'Inclusions', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
-  {field:"travelMode",headerName:"TravelMode",width:150,headerClassName: 'custom-dataGrid-Column-design'},
-  {field:"prices",headerName:"Prices",width:150,headerClassName: 'custom-dataGrid-Column-design'},
+  { field:"travelMode",headerName:"TravelMode",width:150,headerClassName: 'custom-dataGrid-Column-design'},
+  { field:"prices",headerName:"Prices",width:150,headerClassName: 'custom-dataGrid-Column-design'},
   { field: 'duration', headerName: 'Duration', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
   { field: 'destinations', headerName: 'Destinations', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
   { field: 'description', headerName: 'Description', width: 150,headerClassName: 'custom-dataGrid-Column-design' },
