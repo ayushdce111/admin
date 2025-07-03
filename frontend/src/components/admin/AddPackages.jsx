@@ -183,7 +183,7 @@ const cloudinaryRes = await uploadToCloudinary();
           {errors.duration && <p className="text-red-500 text-sm">{errors.duration}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Prices ($)</label>
+          <label className="block text-sm font-medium text-gray-700">Prices </label>
           <input
             type="number"
             name="prices"
