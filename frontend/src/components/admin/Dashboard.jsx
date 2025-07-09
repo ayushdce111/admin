@@ -287,6 +287,7 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
                             <Routes>
                                 <Route path="/" element={<AdminMain />} />
                                 <Route path="/AddPackages/" element={<AddPackages />} />
+                                <Route path="/AddPackages/:updateRow" element={<AddPackages />} />
                                 <Route path="/ViewAdminPackages/" element={<ViewAdminPackages />} />
                                 <Route path="/CustomerEnquiry/" element={<CustomerEnquiry />} />
                                 <Route path="/agenttravelpackages/" element={<Agenttravelpackages />} />

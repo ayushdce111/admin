@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import {ToastContainer} from "react-toastify";
 import { handleError,handleSuccess } from '../Toast';
 import API from "../../../axios.jsx";
+import { useEffect } from 'react';
+import { useParams} from 'react-router-dom';
 
 function AddPackages() {
-
+  const { updateRow } = useParams();
   const [formData, setFormData] = useState({
     title: '',
     destinations: '',
@@ -121,10 +123,65 @@ const cloudinaryRes = await uploadToCloudinary();
 
     }
   }
+    // const [alltravelPackages, setAllTravelPackages] = useState([]);
+const updateDatafunction = async ()=>{
+  if (updateRow) {
+
+    const Alldata = await API.get('/admin/api/admintravelpackages');
+        // setAllTravelPackages();
+
+        const updatingRowData = Alldata.data.filter((data,index)=> data._id===updateRow);
+
+        // console.log(Alldata.data.filter((data,index)=> data._id===updateRow));
+
+      console.log(updateRow,"=================",updatingRowData[0]);
+      // axios.get(/api/items/${id}).then((res) => {
+        // setFormData(res.data);
+      // }).catch(console.error);
+
+      setFormData({
+        availability:updatingRowData[0].availability,
+        description:  updatingRowData[0].description,
+        destinations:  updatingRowData[0].destinations,
+        image_url:  updatingRowData[0].image_url,
+        duration:  updatingRowData[0].duration,
+        inclusions:  updatingRowData[0].inclusions,
+        prices:  updatingRowData[0].prices,
+        travelMode:  updatingRowData[0].travelMode,
+        travelcategory: updatingRowData[0].travelcategory,
+        title:  updatingRowData[0].title,
+
+      });
+
+
+    }else{
+      setFormData({
+        title: '',
+        destinations: '',
+        duration: '',
+        description: '',
+        prices: '',
+        travelMode: '',
+        inclusions: '',
+        availability: '',
+      });
+    }
+}
+  
+    
+ useEffect(() => {
+    
+  updateDatafunction();
+
+      
+
+  }, [updateRow]);
+
+
 
   return (
     <div className='pt-2'>
-      <h2 className='font-bold text-2xl text-[#FCECDD] py-2 px-2 mb-4 bg-[#e5a570]'>Travel Package Form </h2>
+      <h2 className='font-bold text-2xl text-[#FCECDD] py-2 px-2 mb-4 bg-[#e5a570]'>{updateRow ? 'Update' : 'Add'} Travel Package </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className='grid grid-cols-2 gap-4 '>
@@ -173,12 +230,12 @@ const cloudinaryRes = await uploadToCloudinary();
         <div>
           <label className="block text-sm font-medium text-gray-700">Duration</label>
           <input
-            type="text"
+             type="number"
             name="duration"
             value={formData.duration}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            placeholder="e.g., 7 days"
+            placeholder="e.g., 4"
           />
           {errors.duration && <p className="text-red-500 text-sm">{errors.duration}</p>}
         </div>
@@ -213,14 +270,14 @@ const cloudinaryRes = await uploadToCloudinary();
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Availability</label>
+          <label className="block text-sm font-medium text-gray-700">Seats Availability</label>
           <input
-            type="text"
+             type="number"
             name="availability"
             value={formData.availability}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            placeholder="e.g., 20 seats available"
+            placeholder="e.g., 20 "
           />
           {errors.availability && <p className="text-red-500 text-sm">{errors.availability}</p>}
         </div>
@@ -276,7 +333,7 @@ const cloudinaryRes = await uploadToCloudinary();
           type="submit"
           className="w-full bg-[#e5a570] text-white p-2 rounded-md hover:bg-[#F3A26D] font-semibold mb-2 cursor-pointer"
         >
-          Add Travel Packages
+         {updateRow ? 'Update' : 'Add'} Travel Packages
         </button>
       </form>
       <ToastContainer/>
