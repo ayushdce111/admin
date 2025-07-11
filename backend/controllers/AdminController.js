@@ -234,4 +234,33 @@ if(Credit.length==0){
   }
 }
 
-module.exports = {addCredittoAgent, removeleadsfromagent, sendleadstoagent, updateagentslist, travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages, getagentslist};
+const updateadmintravelpackages=async (req, res) => {
+   // Expecting an array of users with _id and new status
+// console.log(req.body,"<-----------updatetravelpackages");
+const {updateRow_id, formData, imageUrl, publicId }=req.body;
+
+try {
+    
+
+    const resultAdmin = await travelpackageModel.findByIdAndUpdate(
+      updateRow_id,
+      
+      {...formData,image_url:imageUrl,image_id:publicId},
+      { newupdated: true } // return the updated document
+    );
+
+    if (!resultAdmin) {
+      console.log('Admin Package Data not found');
+    } else {
+      console.log('Updated Admin Package data:', resultAdmin);
+      res.status(201).json({ success: true, message: "Updated Admin Package data" });
+    }
+    
+  } catch (error) {
+    console.error('Error updating Package data:', error);
+    res.status(500).json({message:error});
+  }
+
+}
+
+module.exports = {updateadmintravelpackages, addCredittoAgent, removeleadsfromagent, sendleadstoagent, updateagentslist, travelpackages,getadmintravelpackages,getAllEnquiry,updatetravelpackages,agenttravelpackages, getagentslist};

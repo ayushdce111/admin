@@ -1,8 +1,9 @@
 
-const {addCredittoAgent,removeleadsfromagent,sendleadstoagent,updateagentslist,getagentslist,travelpackages,getadmintravelpackages,agenttravelpackages,getAllEnquiry,updatetravelpackages} = require("../controllers/AdminController.js");
+const {updateadmintravelpackages, addCredittoAgent,removeleadsfromagent,sendleadstoagent,updateagentslist,getagentslist,travelpackages,getadmintravelpackages,agenttravelpackages,getAllEnquiry,updatetravelpackages} = require("../controllers/AdminController.js");
 const router = require("express").Router();
 
 router.post("/api/travelpackages",travelpackages);
+router.put("/api/updateadmintravelpackages",updateadmintravelpackages);
 router.get("/api/admintravelpackages",getadmintravelpackages);
 router.get("/api/agenttravelpackages",agenttravelpackages);
 router.get("/api/enquiry",getAllEnquiry);

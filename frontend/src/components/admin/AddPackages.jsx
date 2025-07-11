@@ -7,6 +7,8 @@ import { useParams} from 'react-router-dom';
 
 function AddPackages() {
   const { updateRow } = useParams();
+  // console.log(updateRow,"<===");
+  const[blobImage,setBlobImage]= useState("");
   const [formData, setFormData] = useState({
     title: '',
     destinations: '',
@@ -17,24 +19,27 @@ function AddPackages() {
     inclusions: '',
     availability: '',
     travelcategory:'',
-    image_upload:null
+    image_upload:null,
+    image_url: '',
+    image_id: ''
   });
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
 
-    
+    // console.log(formData,"<===========before formData ON Change")
 
     if(e.target.name ==="image_upload"){
       
       setFormData({ ...formData, ["image_upload"]: e.target.files[0] });
+      setBlobImage({...blobImage,["image_upload"]: e.target.files[0]})
       
     }else{
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
     }
-    
+    // console.log(formData,"<=========== after formData ON Change")
     };
 
   const validateForm = () => {
@@ -48,7 +53,7 @@ function AddPackages() {
     if (!formData.inclusions) newErrors.inclusions = 'Inclusions are required';
     if (!formData.availability) newErrors.availability = 'Availability is required';
     if (!formData.travelcategory) newErrors.travelcategory = 'Travel category is required';
-    if (!formData.image_upload) newErrors.image_upload = 'Image is required';
+    // if (!formData.image_upload) newErrors.image_upload = 'Image is required';
 
     return newErrors;
   };
@@ -57,7 +62,7 @@ function AddPackages() {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log('Form submitted:', formData);
+      // console.log('Form submitted:', formData);
       
 
       const Token= localStorage.getItem("token");
@@ -68,6 +73,7 @@ function AddPackages() {
       const CLOUDINARY_CLOUD_NAME = 'dkidq9wlq';
 
       const uploadToCloudinary = async () => {
+        // console.log(formData.image_upload,"uploadToCloudinary")
           const data = new FormData();
           data.append('file', formData.image_upload);
           data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -77,11 +83,14 @@ function AddPackages() {
           );
           return res.data;
   };
-const cloudinaryRes = await uploadToCloudinary();
-// cloudinary ENDS
+  const cloudinaryRes = await uploadToCloudinary();
+  // cloudinary ENDS
+    
 
       if(Token && UserEmail){
         
+
+
        const SubmitTravelPackages = async ()=>{
 
           try{
@@ -89,7 +98,7 @@ const cloudinaryRes = await uploadToCloudinary();
 
                     const response = await API.post("/admin/api/travelpackages", {UserEmail,formData,imageUrl: cloudinaryRes.secure_url,publicId: cloudinaryRes.public_id,});
                     const responsData = await response.data;
-                    console.log(responsData,"<-------------responsData");
+                    // console.log(responsData,"<-------------responsData");
 
                     handleSuccess("form submitted")
           }catch(error){
@@ -99,8 +108,38 @@ const cloudinaryRes = await uploadToCloudinary();
           }
 
         }
+        const UpdateTravelPackages = async ()=>{
 
-        SubmitTravelPackages();
+          try{
+
+
+                    const response = await API.put("/admin/api/updateadmintravelpackages", {updateRow_id:updateRow,formData,imageUrl: cloudinaryRes.secure_url,publicId: cloudinaryRes.public_id,});
+                    const responsData = await response.data;
+                    // console.log(responsData,"<-------------responsData");
+
+                    handleSuccess("package updated")
+          }catch(error){
+            // console.log(error,"<--------to handlew");
+            error.status===409 ? handleError(error.response.data.message + " with same name") :"";
+            
+          }
+
+        }
+
+        if(updateRow){
+          // console.log("yes")
+          // console.log(formData,"<===========formData")
+          // console.log(cloudinaryRes.secure_url,"cloudinaryRes.secure_url");
+          setFormData({ ...formData, ["image_url"]: cloudinaryRes.secure_url, ["image_id"]: cloudinaryRes.public_id });
+          UpdateTravelPackages();
+
+        }else{
+          // console.log("No");
+          // console.log(formData,"<===========formData")
+          SubmitTravelPackages();
+        }
+
+        
         // Reset form or send to API
       // setFormData({
       //   title: '',
@@ -134,7 +173,7 @@ const updateDatafunction = async ()=>{
 
         // console.log(Alldata.data.filter((data,index)=> data._id===updateRow));
 
-      console.log(updateRow,"=================",updatingRowData[0]);
+      // console.log(updateRow,"=================",updatingRowData[0]);
       // axios.get(/api/items/${id}).then((res) => {
         // setFormData(res.data);
       // }).catch(console.error);
@@ -143,7 +182,7 @@ const updateDatafunction = async ()=>{
         availability:updatingRowData[0].availability,
         description:  updatingRowData[0].description,
         destinations:  updatingRowData[0].destinations,
-        image_url:  updatingRowData[0].image_url,
+        image_upload:  updatingRowData[0].image_url || null,
         duration:  updatingRowData[0].duration,
         inclusions:  updatingRowData[0].inclusions,
         prices:  updatingRowData[0].prices,
@@ -178,11 +217,20 @@ const updateDatafunction = async ()=>{
   }, [updateRow]);
 
 
-
+// console.log(formData,"formData")
   return (
     <div className='pt-2'>
       <h2 className='font-bold text-2xl text-[#FCECDD] py-2 px-2 mb-4 bg-[#e5a570]'>{updateRow ? 'Update' : 'Add'} Travel Package </h2>
-
+<div className='pb-3'>
+            {/* {console.log(blobImage,"formData.image_upload")} */}
+            {formData.image_upload && (
+            <img
+              src={formData.image_upload}
+              alt="Current"
+              className="mt-2 max-h-40 rounded-md"
+            />
+          )}
+</div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className='grid grid-cols-2 gap-4 '>
         <div>
@@ -286,12 +334,10 @@ const updateDatafunction = async ()=>{
           <input 
             type="file" 
             name="image_upload"
-            // value={formData.image_upload}
             onChange={handleChange} 
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            placeholder="choose image "
-            required />
-          
+            // required
+             />
           {errors.image_upload && <p className="text-red-500 text-sm">{errors.image_upload}</p>}
         </div>
 </div>
